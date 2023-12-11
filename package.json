@@ -21,13 +21,9 @@
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.33.0",
-    "@react-spring/web": "^9.7.3",
     "crypto-js": "^4.2.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "next": "14.0.2",
-    "react": "^18",
-    "react-dom": "^18",
     "swiper": "^11.0.5",
     "zod": "^3.22.4"
   },
