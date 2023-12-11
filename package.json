@@ -21,7 +21,6 @@
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.33.0",
-    "crypto-js": "^4.2.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "swiper": "^11.0.5",
