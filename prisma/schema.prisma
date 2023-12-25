@@ -106,6 +106,7 @@ model Products {
   description String
   specs       String
   images      String[]
+  price       Float
   seriesId    String?    @default("ORIGINAL")
   genresId    String
   eventsId    String?
