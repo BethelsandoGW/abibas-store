@@ -1,113 +1,38 @@
-import Image from 'next/image'
+import Image from "next/image";
+import { HaloFest2L } from "@/lib/StaticImagesLib";
+import dynamic from "next/dynamic";
+const UserPrefsSettings = dynamic(() => import("@/app/components/UserPrefSettings"), { ssr: false });
+const Navbar = dynamic(() => import('@/app/components/DefaultNavbar'), { ssr: false });
+const ContentWrapper = dynamic(() => import ("@/app/components/DefaultContentWrapper"), { ssr: false });
+const HomePage = () => {
+    return (
+        <>
+            <Navbar />
+            <ContentWrapper>
+                <section className="w-full aspect-video">
+                    <Image
+                        src={HaloFest2L}
+                        alt="halo-fest-2"
+                        quality={100}
+                        className="w-full h-full object-cover object-center"
+                    />
+                </section>
+                <div>
+                    Viriscondimentum sapien graeci purus ei percipit molestie appetere signiferumque senserit mediocrem moderatius ridiculus.  Voluptatumhac cum evertitur tamquam maiestatis mandamus fusce donec class consetetur habeo donec.  Faucibusalterum dicta sadipscing eirmod tamquam phasellus harum scelerisque accumsan autem patrioque varius cursus consul persius efficitur singulis saperet.  Suscipianturmaiestatis luctus doming vituperata adversarium eruditi suscipiantur oporteat ne evertitur veri prodesset repudiandae nisi nulla.  Tortorvarius minim tritani.
+Utdico consetetur posuere aperiri.  Euismodinterdum mei alienum repudiare dissentiunt numquam malesuada inciderint augue eget disputationi esse quaestio singulis.  Patrioqueassueverit referrentur elit persecuti voluptatum suscipit recteque felis urbanitas.
+Propriaeullamcorper persius perpetua eros eu.  Atomorumdeterruisset possim impetus interpretaris eleifend ridens eripuit lorem maiorum eros parturient posidonium eripuit vulputate.  Veriproin graeci mi invenire utroque verterem.  Impetusmorbi metus cetero error saperet eam rutrum inciderint potenti.
+Congueelitr proin dolores oporteat.  Habitantvituperata vituperata.
+Virispericulis aliquip homero malesuada ridiculus faucibus maiorum ridiculus mediocritatem facilisi.  Meiexpetenda tale elementum platea nonumes inani comprehensam singulis eleifend tacimates accommodare.  Doctusin rhoncus iisque elaboraret mei moderatius principes decore offendit voluptaria tempor assueverit disputationi.  Sonetipsum fames lacus est novum quidam affert mattis id quaeque graeco urbanitas tincidunt veri indoctum sodales.  Vitaemediocritatem ultricies curae natoque pri elitr evertitur laudem.
+Vixoratio referrentur curae phasellus inceptos detraxit appareat ligula torquent facilis conubia sed tibique aptent melius.  Quasnihil facilisi periculis nostra repudiare utamur quot.
+Cumpertinax melius dapibus quem adolescens doming volumus tractatos aliquid torquent nominavi diam bibendum suscipiantur lectus delectus theophrastus massa.  Epicureineglegentur consetetur quam dui tation adolescens affert finibus principes alia dignissim phasellus elaboraret constituam tritani ultricies falli.  Quotpenatibus ubique deseruisse impetus egestas liber natoque novum salutatus evertitur.  Dolorullamcorper porttitor eloquentiam eius scelerisque aliquid tibique porro expetendis.  Quisquesed mazim populo dolores nam.  Laoreetbrute mandamus montes quod fames postulant.
+Adolescensmenandri suscipit sanctus duo appareat reprehendunt.  Definitionemantiopam gloriatur.  Rectequelegimus sociosqu cursus cubilia cursus ut venenatis scripserit noluisse delicata vel.  Sociisscripta euismod debet commune habeo taciti eam persequeris quot offendit adolescens persecuti leo meliore ultrices porttitor.
+Purusreprehendunt euismod dicat eripuit consectetuer latine alterum vel feugait similique metus iriure fabulas legimus lorem.  Nullaerat dicunt pertinax qualisque lobortis.  Ponderumorci inceptos utinam egestas maximus molestie risus falli nascetur tamquam.  Maiestatisleo maecenas duo utamur viverra dolores dapibus quaestio duis montes nostra inimicus.  Ridensgraeco velit quidam ridiculus molestiae invidunt.
+Propriaeantiopam dolor tamquam delectus.  Facilisetiam proin.  Pharetraverterem facilis prompta iusto curae.  Tacimatescontentiones facilisis graecis blandit amet accumsan iuvaret delectus reprehendunt libero referrentur.  Novivamus sententiae eu eruditi volumus mediocritatem.  Eloquentiamullamcorper natum tamquam brute malesuada est.
+                </div>
+            </ContentWrapper>
+            <UserPrefsSettings mode="Default" />
+        </>
+    );
+};
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default HomePage;
