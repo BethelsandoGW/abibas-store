@@ -77,6 +77,17 @@ model Audiences {
   products  Products[]
 }
 
+model Categories {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String
+  description String
+  images      String[]
+  createdAt   DateTime?  @default(now())
+  updatedAt   DateTime?  @updatedAt
+  products    Products[]
+}
+
 model Genres {
   id          String     @id @default(cuid())
   name        String     @unique
@@ -99,22 +110,24 @@ model Series {
 }
 
 model Products {
-  id          String     @id @default(cuid())
-  audienceId  String     @default("ALL")
-  name        String     @unique
+  id          String      @id @default(cuid())
+  audienceId  String      @default("ALL")
+  categoryId  String      @default("UNCLASSIFIED")
+  name        String      @unique
   slug        String
   description String
   specs       String
   images      String[]
   price       Float
-  seriesId    String?    @default("ORIGINAL")
+  seriesId    String?     @default("ORIGINAL")
   genresId    String
   eventsId    String?
-  createdAt   DateTime?  @default(now())
-  updatedAt   DateTime?  @updatedAt
-  audiences   Audiences? @relation(fields: [audienceId], references: [id])
-  series      Series?    @relation(fields: [seriesId], references: [id])
-  genres      Genres?    @relation(fields: [genresId], references: [id])
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  audiences   Audiences?  @relation(fields: [audienceId], references: [id])
+  categories  Categories? @relation(fields: [categoryId], references: [id])
+  series      Series?     @relation(fields: [seriesId], references: [id])
+  genres      Genres?     @relation(fields: [genresId], references: [id])
   events      Events[]
 }
 
