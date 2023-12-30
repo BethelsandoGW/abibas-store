@@ -67,8 +67,8 @@ const DashboardPage = async () => {
             {/*            </div>*/}
             {/*            <div className="h-10 flex items-end justify-center text-sm text-zinc-700">*/}
             {/*                Last Entry :*/}
-            {/*                /!*{ dashboardData.categories.createdAt*!/*/}
-            {/*                /!*    ? ` ${dateFormat(dashboardData.categories.createdAt.toDateString(), 'YYYY-MM-DD')}`*!/*/}
+            {/*                /!*{ dashboardData.genres.createdAt*!/*/}
+            {/*                /!*    ? ` ${dateFormat(dashboardData.genres.createdAt.toDateString(), 'YYYY-MM-DD')}`*!/*/}
             {/*                /!*    : 'Not set yet'*!/*/}
             {/*                /!*}*!/*/}
             {/*            </div>*/}
