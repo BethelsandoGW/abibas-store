@@ -19,13 +19,6 @@ async function main() {
     await prisma.categories.createMany({
         data: [
             {
-                id: 'UNCLASSIFIED',
-                name: 'UNCLASSIFIED',
-                slug: '',
-                description: '',
-                images: []
-            },
-            {
                 name: 'T-shirt',
                 slug: 'express-yourself',
                 description: 'Discover unique expressions with Abibas T-shirt collection.',
@@ -144,42 +137,11 @@ async function main() {
                 slug: 'elevate-your-formal-style',
                 description: 'Elevate your formal style with Abibas Tie.',
                 images: []
-            },
-            {
-                name: 'Wallet',
-                slug: 'carry-your-essentials',
-                description: 'Carry your essentials with Abibas Wallet.',
-                images: []
-            },
-            {
-                name: 'Umbrella',
-                slug: 'stay-dry-in-style',
-                description: 'Stay dry in style with Abibas Umbrella.',
-                images: []
-            },
-            {
-                name: 'Towel',
-                slug: 'stay-fresh',
-                description: 'Stay fresh with Abibas Towel.',
-                images: []
-            },
-            {
-                name: 'Gaiter',
-                slug: 'protect-your-neck-and-face',
-                description: 'Protect your neck and face with Abibas Gaiter.',
-                images: []
-            },
+            }
         ]
     });
     await prisma.genres.createMany({
         data: [
-            {
-                id: 'ORIGINAL',
-                name: 'ORIGINAL',
-                slug: '',
-                description: '',
-                images: []
-            },
             {
                 name: 'Life Style',
                 slug: 'Make your move with Abibas',
@@ -497,9 +459,9 @@ async function main() {
                 endDate: new Date('2024-01-10T23:59:59Z'),
             },
             {
-                name: 'New Year Extravaganza Showcase',
-                slug: 'new-year-extravaganza-showcase',
-                description: 'Welcome the new year with an extravagant showcase of talents and festivities!',
+                name: 'New Year New Me',
+                slug: 'New Year a New Me',
+                description: 'Welcome the new year with showcases of talents and festivities!',
                 images: [],
                 status: true,
                 beginDate: new Date('2023-12-26T00:00:00Z'),
@@ -507,27 +469,27 @@ async function main() {
             },
 
             {
-                name: 'Artisan Winter Wonderland',
-                slug: 'artisan-winter-wonderland',
-                description: 'Explore a winter wonderland of artisanal crafts and creativity!',
+                name: 'Where All Miracle begin',
+                slug: 'Where All Miracle begin',
+                description: 'Where All Miracle begin',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-11T00:00:00Z'),
                 endDate: new Date('2024-01-20T23:59:59Z'),
             },
             {
-                name: 'Tech Marvels Showcase',
-                slug: 'tech-marvels-showcase',
-                description: 'Discover marvels in technology at this extraordinary showcase!',
+                name: 'Mystical Masquerade',
+                slug: 'mystical-masquerade',
+                description: 'Unmask the mysteries at the Mystical Masquerade! A ball of intrigue and glamour awaits you.',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-21T00:00:00Z'),
                 endDate: new Date('2024-01-30T23:59:59Z'),
             },
             {
-                name: 'Fashion Elegance Extravaganza',
-                slug: 'fashion-elegance-extravaganza',
-                description: 'Immerse yourself in the elegance of fashion at this grand extravaganza!',
+                name: 'Starlit Ethereum',
+                slug: 'Starlit Ethereum',
+                description: 'Starlit Ethereum',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-31T00:00:00Z'),
@@ -535,27 +497,27 @@ async function main() {
             },
 
             {
-                name: 'Midwinter Magic Showcase',
-                slug: 'midwinter-magic-showcase',
-                description: 'Witness the magic of midwinter in this enchanting showcase!',
+                name: 'Starry Night Revelry',
+                slug: 'Starry Night Revelry',
+                description: 'Starry Night Revelry',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-26T00:00:00Z'),
                 endDate: new Date('2024-02-05T23:59:59Z'),
             },
             {
-                name: 'Culinary Delights Festival',
-                slug: 'culinary-delights-festival',
-                description: 'Savor the flavors at this culinary delights festival!',
+                name: 'Bunny Chaser on board',
+                slug: 'Bunny Chaser on board',
+                description: 'Bunny Chaser on board',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-06T00:00:00Z'),
                 endDate: new Date('2024-02-15T23:59:59Z'),
             },
             {
-                name: 'Artistry in Motion Expo',
-                slug: 'artistry-in-motion-expo',
-                description: 'Experience artistry in motion at this captivating expo!',
+                name: 'KDA All Out!',
+                slug: 'KDA All Out!',
+                description: 'KDA All Out!',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-16T00:00:00Z'),
@@ -563,18 +525,18 @@ async function main() {
             },
 
             {
-                name: 'Heartfelt Love Affair',
-                slug: 'heartfelt-love-affair',
-                description: 'Celebrate love in a heartfelt affair filled with romance and joy!',
+                name: 'An Unconcealed Heart',
+                slug: 'An Unconcealed Heart',
+                description: 'An Unconcealed Heart',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-10T00:00:00Z'),
                 endDate: new Date('2024-02-20T23:59:59Z'),
             },
             {
-                name: 'Tech Marvels Unleashed',
-                slug: 'tech-marvels-unleashed',
-                description: 'Unleash the latest tech marvels at this cutting-edge exhibition!',
+                name: 'Starry Serenity Soirée',
+                slug: 'Starry Serenity Soirée',
+                description: 'Starry Serenity Soirée',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-21T00:00:00Z'),

@@ -70,7 +70,7 @@ model VerificationRequest {
 
 model Audiences {
   id        String     @id @default(cuid())
-  name      String
+  name      String     @unique
   images    String[]
   createdAt DateTime?  @default(now())
   updatedAt DateTime?  @updatedAt
@@ -111,17 +111,17 @@ model Series {
 
 model Products {
   id          String      @id @default(cuid())
-  audienceId  String      @default("ALL")
-  categoryId  String      @default("UNCLASSIFIED")
+  audienceId  String
+  categoryId  String
+  genresId    String
+  seriesId    String
   name        String      @unique
   slug        String
   description String
   specs       String
   images      String[]
   price       Float
-  seriesId    String?     @default("ORIGINAL")
-  genresId    String
-  eventsId    String?
+  stock       Int
   createdAt   DateTime?   @default(now())
   updatedAt   DateTime?   @updatedAt
   audiences   Audiences?  @relation(fields: [audienceId], references: [id])
