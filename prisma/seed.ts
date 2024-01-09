@@ -9,7 +9,7 @@ async function main() {
     });
     await prisma.audiences.createMany({
         data: [
-            { name: 'ALL' },
+            { name: 'UNISEX' },
             { name: 'MEN' },
             { name: 'WOMEN' },
             { name: 'KID' },
