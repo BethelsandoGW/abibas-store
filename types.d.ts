@@ -2,6 +2,11 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 declare global {
+    type GendersEnum = {
+        UNISEX: "UNISEX",
+        MALE: "MALE",
+        FEMALE: "FEMALE"
+    }
     type AudiencesModelType = {
         id: string,
         name: string
@@ -35,6 +40,7 @@ declare global {
     }
     type ProductsModelType = {
         id: string,
+        gender: GendersEnum[keyof GendersEnum]
         audienceId: string,
         categoryId: string,
         genresId: string,
