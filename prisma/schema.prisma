@@ -68,6 +68,12 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
+enum Genders {
+  UNISEX
+  MALE
+  FEMALE
+}
+
 model Audiences {
   id        String     @id @default(cuid())
   name      String     @unique
@@ -111,6 +117,7 @@ model Series {
 
 model Products {
   id          String      @id @default(cuid())
+  gender      Genders
   audienceId  String
   categoryId  String
   genresId    String
