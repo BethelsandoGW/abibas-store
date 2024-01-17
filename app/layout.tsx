@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import Script from "next/script";
 import { NextFont } from "next/dist/compiled/@next/font";
 import UserPreferencesProvider from "@/context/UserPreferencesProvider";
-import { UserPrefSettingsToggler } from "@/app/components/UserPrefSettingsToggler";
+
 const poppins: NextFont = Poppins({
     style: 'normal',
     weight: '400',
@@ -25,7 +25,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <body className={poppins.className}>
                 <UserPreferencesProvider>
                     { children }
-                    <UserPrefSettingsToggler />
                 </UserPreferencesProvider>
             </body>
         </html>

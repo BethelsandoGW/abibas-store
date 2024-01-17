@@ -1,40 +1,27 @@
+'use client';
 import { ReactNode } from "react";
 import dynamic from "next/dynamic";
+import { useUserPrefsContext } from "@/hooks/useUserPreferencesContext";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 const AdminNavbar = dynamic(() => import('@/app/components/AdminNavbar'), { ssr: false });
 const AdminContentWrapper = ({ children }: { children: ReactNode }) => {
+    const { userPrefsState } = useUserPrefsContext();
     return (
         <>
-            <section className="flex-1 ml-0 lg:ml-80 w-full transition-all duration-300 ease-in-out overflow-x-clip">
-                <div className="mx-4">
-                    <AdminNavbar />
-                    { children }
-                    Docendiipsum quem deseruisse.  Tamquamreprehendunt dapibus brute fastidii ultrices decore etiam erat.  Convenireelectram electram deseruisse parturient dicit iisque.  Musdelenit oporteat novum augue error hinc hendrerit luptatum agam nibh volutpat similique justo alterum.
-Lectusfacilis mauris.  Nisiea nihil pericula tota mucius sadipscing egestas nobis blandit molestie reque delectus phasellus luctus efficiantur.  Quemvoluptatibus etiam luctus contentiones instructior verterem facilis verear oratio agam inciderint qualisque tempor litora accommodare deseruisse.  Iddelenit amet eos antiopam convallis lectus doctus deseruisse oporteat tortor magna scelerisque saepe.
-Pretiumatomorum laudem nullam definitionem mutat contentiones veritus antiopam honestatis falli sale mea altera proin aliquet.  Conceptamvulputate ponderum consul adolescens montes graecis maiorum dictumst referrentur ante atqui tempus eu nisi maluisset urbanitas elit eirmod auctor.  Nonumyperpetua gravida possit ligula periculis per purus leo mucius saepe mi splendide rutrum quidam hac semper nisi.  Omittanturquaestio faucibus tristique urbanitas tristique detracto vix litora dico imperdiet phasellus eirmod adipiscing sanctus.  Meliussimilique postulant epicurei fringilla dicam adipisci.
-Velurna unum detraxit causae persius pertinax quis nulla verear vivamus vivendo.  Quisqueatqui reprimique explicari constituto.  Estcum solet euripidis mutat ullamcorper blandit adolescens mus sonet iusto usu epicurei class animal.  Sodalesmandamus maximus congue penatibus parturient nonumes error himenaeos posuere epicurei mandamus nunc adversarium alia referrentur minim.  Delectusblandit habitant antiopam volumus augue noluisse moderatius voluptaria nostra atqui vis semper egestas dolore porttitor vituperata postulant.  Accommodaremolestie maiorum adhuc augue nec ceteros fabulas persequeris nonumes adipisci consectetuer mandamus vix ridens comprehensam debet senserit platea.
-Disvitae affert platonem consectetuer inani molestiae nisl ad sadipscing venenatis pharetra viderer curabitur mediocritatem periculis amet consectetur dicant curae.  Donecdisputationi solum interdum.  Auguehonestatis efficitur eu principes meliore ex tellus iaculis at tacimates has scelerisque facilisis quisque gravida.  Graecoaudire nostrum mel mutat vituperatoribus oporteat dis ut te nonumy orci.
-Conguecurabitur alia option.  Definitionesviderer his patrioque finibus.  Odioiriure referrentur wisi integer movet gloriatur eget nostrum eirmod.  Fuscedonec enim posse turpis semper nullam mollis blandit eripuit eos mel necessitatibus dictas vivamus per curae fabellas consetetur metus.
-Rutrumhabitasse causae impetus maluisset ferri netus.  Constitutograecis torquent.  Curaevulputate eius sanctus has omittantur ullamcorper interesset alienum omittantur habemus ponderum qualisque dolorem volumus cetero definitionem adhuc.  Massaconubia inimicus dico feugait voluptatibus blandit constituto sociosqu moderatius elaboraret ut nascetur pulvinar.
-Periculisut odio lacus indoctum eripuit rhoncus.  Saleconstituto theophrastus necessitatibus auctor litora nam commune augue.  Animaltempor quis constituto docendi libris inciderint finibus disputationi dicant impetus.  Gubergrenpericulis molestie diam aliquam ferri habitasse pellentesque efficiantur nisi ocurreret mi vidisse deseruisse senserit id.  Verteremreque perpetua erroribus cetero curabitur velit principes integer pulvinar sit donec dolore inciderint cras veri cum.
-Bibendumin posuere volutpat donec qualisque constituto interdum interdum euismod oporteat legere.  Aquaerendum noster pertinacia oratio inciderint lorem aptent dapibus verterem sumo voluptatum iaculis inimicus duis vel ad tota.
-Principescondimentum ponderum.  Iaculismandamus eirmod tibique inciderint atomorum efficitur nunc eget sale audire molestiae tincidunt quas veri suscipiantur ipsum nonumy tamquam nostra.  Quisorci persecuti mucius ferri contentiones.
-Natumlabores honestatis scelerisque sollicitudin reformidans animal viverra nobis lectus taciti a reprehendunt eros iusto cu euismod voluptatum.  Exvel animal euripidis.  Antequod est scripserit constituto oporteat tantas comprehensam gubergren pharetra brute.  Domingvocent nec simul condimentum sed litora tacimates nonumy eos verear posse posidonium intellegat efficitur deseruisse ac fermentum.
-Constituamcommodo legere unum qui tempus ac inceptos prodesset invenire mazim himenaeos.  Viriscausae scripta fuisset mattis conclusionemque utinam pri morbi convallis.  Arcumaiestatis tation pro graeci vix tellus.  Pertinaciatantas usu erat ac animal scripta interesset vulputate porro tacimates contentiones semper erat facilisis invidunt ad voluptatibus scelerisque quis.  Visclass menandri euismod sea congue dictas.  Nonumyoratio hendrerit mauris fugit.
-Vimconceptam petentium montes.  Cuquaeque tacimates.  Aperiricorrumpit amet antiopam erat legere signiferumque natoque saperet leo suas vis.  Nehabemus torquent dictas bibendum ad.  Eripuitiaculis vel viverra honestatis idque theophrastus vivendo feugiat posidonium orci decore splendide ceteros an.
-Quotpretium unum persius facilis senectus adipiscing partiendo.  Delicatasodales sale gloriatur ac commune varius libris tota numquam nunc delenit viderer senserit lobortis ferri curabitur.  Nominavinecessitatibus vulputate epicuri aliquam.  Sociispopulo prompta sagittis ceteros mazim impetus varius malorum pharetra delenit has detracto gravida te mazim eirmod.
-Persequerissalutatus vel omnesque corrumpit magnis dolores populo dolores movet epicuri labores id iaculis aliquid perpetua errem saepe.  Contentionesdis eros quam eum quidam solet per adhuc dis elit class accumsan deseruisse dis maecenas ne causae omittantur.  Erostation erroribus gloriatur volumus eget errem felis molestie aliquip.  Mutatconceptam sonet lectus orci vidisse sale integer.  Ametdicta electram consectetuer iusto id vocibus appareat an vehicula cursus interpretaris metus mediocritatem quis porro numquam ponderum consul himenaeos.  Omnesquefacilisi possim non fabellas hac habitant populo laoreet ponderum dicta erroribus platonem.
-Moveta cum constituam euripidis mucius placerat eget pulvinar accumsan elitr an eros quaerendum arcu nam suavitate dignissim.  Condimentumquo per himenaeos eirmod alia efficitur audire equidem maecenas felis utamur nobis curae mea periculis theophrastus.  Malorumadolescens regione affert tempus commodo maiestatis arcu pellentesque duis saperet epicuri sanctus feugait consectetur unum error simul tamquam.
-Nostramorbi explicari sonet sagittis euismod elaboraret.  Pertinaxest referrentur dolorum pretium oporteat felis alienum curae mentitum fuisset mentitum intellegebat dicat.  Appeterejusto inciderint id ei neque latine hendrerit postulant fastidii tristique option putent tristique.  Namarcu quod civibus liber porro delenit labores voluptatum cetero convenire urbanitas dicunt periculis.
-Commodofeugiat ferri dicat nunc conceptam eum quem.  Evertiturcomprehensam ponderum donec dicit erat electram brute ridiculus an nonumy donec no.  Velaliquid quaestio consul neque error harum quem sententiae vis vim nisl suas dicant detraxit semper aliquid magnis ea.  Graecispostea nonumy docendi urna quisque lobortis viverra comprehensam vero natoque lectus lectus causae.  Sonetadolescens vivendo.  Nibhdui proin.
-Mediocritatemfacilis putent vituperatoribus per posse aliquip vim congue iusto mel aliquam regione patrioque.  Erosei ei torquent mus metus tibique cursus.  Eruditihas eget volumus propriae theophrastus litora luptatum partiendo dico lacinia electram gloriatur blandit euismod fringilla primis consequat detracto mi.  Duiregione pellentesque dis adhuc conclusionemque graecis voluptatum labores ius amet.  Mandamusnecessitatibus graeci nascetur repudiandae wisi feugait graeco lacinia cursus veritus tacimates idque dapibus.  Auctordicam interesset quod.
-Aliquidatqui delicata persecuti doming te labores epicuri vocibus ex simul molestie mediocrem lacus reprehendunt habeo sea tempor reprehendunt duo.  Constitutopertinax brute.  Harumperpetua dolore.  Plateami nunc splendide magnis inceptos tractatos quaestio dis ocurreret nostra maluisset nunc metus no facilisis non curae.  Homerohabitasse ponderum integer delenit maiorum graece wisi verterem praesent mattis diam sapientem adolescens ludus erroribus.
-Eleifenderroribus aliquam pellentesque invidunt debet appareat vituperata deseruisse parturient praesent molestie luptatum potenti sapien gravida.  Muciusnec maximus quaerendum repudiandae mediocritatem rhoncus appareat.  Maximusharum possit possit viris adipiscing delicata adversarium duis repudiare posidonium vocent theophrastus perpetua deseruisse.
-Populodictumst porta aenean nam a scripta purus natum mnesarchum.  Sapiensagittis ridiculus offendit partiendo egestas nonumes dignissim consectetuer elit adversarium petentium sollicitudin interpretaris ferri pertinax habitasse eloquentiam.  Meliusnoster dis malorum putent appetere civibus regione definitionem fastidii elaboraret eripuit vel quo suscipiantur quod torquent.  Sagittispulvinar audire maecenas taciti noster novum nonumy consul felis dis tincidunt vis maiorum.
-Fuissetea invidunt sit solet possim nostra nulla.  Suasatomorum vestibulum delenit sociis interdum porta quo fastidii phasellus moderatius magnis.  Corrumpitvoluptaria vel morbi quam suas maluisset tation sociis dicit.
-Possimutroque sale vitae viris omittantur dicat rutrum imperdiet adversarium eam eruditi aenean.  Saperetappetere dico fames comprehensam ornatus ac ei quot sollicitudin nibh an epicurei moderatius impetus donec signiferumque.  Anhis reprehendunt ocurreret postea.  Nostrumfermentum eloquentiam utamur.
-Dictumstconstituto pericula eam quidam harum dicit magna percipit audire voluptatum quaeque.  Sodalestellus perpetua convenire decore constituto curabitur.  Aliquiperipuit libris lacinia natum equidem pertinacia simul gravida brute.
-                </div>
-            </section>
+            <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="id">
+                <section
+                    className="flex-1 ml-0 pb-5 lg:ml-80 w-full transition-all duration-300 ease-in-out overflow-x-clip">
+                    <div className="mx-4">
+                        <AdminNavbar/>
+                        <section
+                            className={`${userPrefsState.navbarFixed ? 'mt-10' : 'mt-0'} transition-all duration-300 ease-in-out`}>
+                            {children}
+                        </section>
+                    </div>
+                </section>
+            </LocalizationProvider>
+
         </>
     );
 };

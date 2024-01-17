@@ -9,7 +9,7 @@ async function main() {
     });
     await prisma.audiences.createMany({
         data: [
-            { name: 'ALL' },
+            { name: 'UNISEX' },
             { name: 'MEN' },
             { name: 'WOMEN' },
             { name: 'KID' },
@@ -19,103 +19,103 @@ async function main() {
     await prisma.categories.createMany({
         data: [
             {
-                name: 'T-shirt',
+                name: 't-shirt',
                 slug: 'express-yourself',
                 description: 'Discover unique expressions with Abibas T-shirt collection.',
                 images: []
             },
             {
-                name: 'Shoe',
+                name: 'shoe',
                 slug: 'step-out-in-style',
                 description: 'Step out in style with Abibas Shoe collection.',
                 images: []
             },
             {
-                name: 'Belt',
+                name: 'belt',
                 slug: 'accessorize-your-outfit',
                 description: 'Complete your look with Abibas Belt.',
                 images: []
             },
             {
-                name: 'Jean',
+                name: 'jean',
                 slug: 'stay-comfortable-and-stylish',
                 description: 'Stay comfortable and stylish with Abibas Jean.',
                 images: []
             },
             {
-                name: 'Pant',
+                name: 'pant',
                 slug: 'elevate-your-look',
                 description: 'Elevate your look with Abibas Pant collection.',
                 images: []
             },
             {
-                name: 'Hat',
+                name: 'hat',
                 slug: 'top-off-your-style',
                 description: 'Top off your style with Abibas Hat.',
                 images: []
             },
             {
-                name: 'Sock',
+                name: 'sock',
                 slug: 'complete-your-outfit',
                 description: 'Complete your outfit with Abibas Sock.',
                 images: []
             },
             {
-                name: 'Jacket',
+                name: 'jacket',
                 slug: 'stay-warm-and-stylish',
                 description: 'Stay warm and stylish with Abibas Jacket.',
                 images: []
             },
             {
-                name: 'Short',
+                name: 'short',
                 slug: 'stay-cool-and-comfortable',
                 description: 'Stay cool and comfortable with Abibas Short.',
                 images: []
             },
             {
-                name: 'Sandal',
+                name: 'sandal',
                 slug: 'relax-your-feet',
                 description: 'Relax your feet with Abibas Sandal collection.',
                 images: []
             },
             {
-                name: 'Watch',
+                name: 'watch',
                 slug: 'complete-your-look',
                 description: 'Complete your look with Abibas Watch.',
                 images: []
             },
             {
-                name: 'Glove',
+                name: 'glove',
                 slug: 'protect-your-hands',
                 description: 'Protect your hands with Abibas Glove.',
                 images: []
             },
             {
-                name: 'Cap',
+                name: 'cap',
                 slug: 'stay-cool-and-stylish',
                 description: 'Stay cool and stylish with Abibas Cap.',
                 images: []
             },
             {
-                name: 'Backpack',
+                name: 'backpack',
                 slug: 'carry-your-essentials',
                 description: 'Carry your essentials with Abibas Backpack.',
                 images: []
             },
             {
-                name: 'Jersey',
+                name: 'jersey',
                 slug: 'support-your-team',
                 description: 'Support your team with Abibas Jersey.',
                 images: []
             },
             {
-                name: 'Legging',
+                name: 'legging',
                 slug: 'stay-active-and-stylish',
                 description: 'Stay active and stylish with Abibas Legging.',
                 images: []
             },
             {
-                name: 'Sunglass',
+                name: 'sunglass',
                 slug: 'protect-your-eyes',
                 description: 'Protect your eyes with Abibas Sunglass.',
                 images: []
@@ -127,13 +127,13 @@ async function main() {
                 images: []
             },
             {
-                name: 'Headband',
+                name: 'headband',
                 slug: 'complete-your-look',
                 description: 'Complete your look with Abibas Headband.',
                 images: []
             },
             {
-                name: 'Tie',
+                name: 'tie',
                 slug: 'elevate-your-formal-style',
                 description: 'Elevate your formal style with Abibas Tie.',
                 images: []
@@ -143,129 +143,129 @@ async function main() {
     await prisma.genres.createMany({
         data: [
             {
-                name: 'Life Style',
-                slug: 'Make your move with Abibas',
-                description: 'Abibas Life Style products is suitable for your great Move!',
+                name: 'lifestyle',
+                slug: 'make your move with abibas',
+                description: 'abibas life style products is suitable for your great move!',
                 images: []
             },
             {
-                name: 'Running',
-                slug: 'Running',
-                description: 'Elevate your running experience with Abibas Running collection.',
+                name: 'running',
+                slug: 'running',
+                description: 'elevate your running experience with abibas running collection.',
                 images: []
             },
             {
-                name: 'Training',
-                slug: 'Training',
-                description: 'Reach your fitness goals with Abibas Training gear.',
+                name: 'training',
+                slug: 'training',
+                description: 'reach your fitness goals with abibas training gear.',
                 images: []
             },
             {
-                name: 'Soccer',
-                slug: 'Soccer',
-                description: 'Score goals in style with Abibas Soccer essentials.',
+                name: 'soccer',
+                slug: 'soccer',
+                description: 'score goals in style with abibas soccer essentials.',
                 images: []
             },
             {
-                name: 'Basketball',
-                slug: 'Basketball',
-                description: 'Dominate the court with Abibas Basketball gear.',
+                name: 'basketball',
+                slug: 'basketball',
+                description: 'dominate the court with abibas basketball gear.',
                 images: []
             },
             {
-                name: 'Outdoor',
-                slug: 'Outdoor',
-                description: 'Conquer the outdoors with Abibas Outdoor collection.',
+                name: 'outdoor',
+                slug: 'outdoor',
+                description: 'conquer the outdoors with abibas outdoor collection.',
                 images: []
             },
             {
-                name: 'Golf',
-                slug: 'Golf',
-                description: 'Perfect your swing with Abibas Golf essentials.',
+                name: 'golf',
+                slug: 'golf',
+                description: 'perfect your swing with abibas golf essentials.',
                 images: []
             },
             {
-                name: 'Cycling',
-                slug: 'Cycling',
-                description: 'Ride in style with Abibas Cycling gear.',
+                name: 'cycling',
+                slug: 'cycling',
+                description: 'ride in style with abibas cycling gear.',
                 images: []
             },
             {
-                name: 'Fitness',
-                slug: 'Fitness',
-                description: 'Achieve your fitness goals with Abibas Fitness collection.',
+                name: 'fitness',
+                slug: 'fitness',
+                description: 'achieve your fitness goals with abibas fitness collection.',
                 images: []
             },
             {
-                name: 'Tennis',
-                slug: 'Tennis',
-                description: 'Ace every match with Abibas Tennis essentials.',
+                name: 'tennis',
+                slug: 'tennis',
+                description: 'ace every match with abibas tennis essentials.',
                 images: []
             },
             {
-                name: 'Yoga',
-                slug: 'Yoga',
-                description: 'Find inner peace and balance with Abibas Yoga gear.',
+                name: 'yoga',
+                slug: 'yoga',
+                description: 'find inner peace and balance with abibas yoga gear.',
                 images: []
             },
             {
-                name: 'Hiking',
-                slug: 'Hiking',
-                description: 'Explore the great outdoors with Abibas Hiking essentials.',
+                name: 'hiking',
+                slug: 'hiking',
+                description: 'explore the great outdoors with abibas hiking essentials.',
                 images: []
             },
             {
-                name: 'Swimming',
-                slug: 'Swimming',
-                description: 'Dive into style with Abibas Swimming gear.',
+                name: 'swimming',
+                slug: 'swimming',
+                description: 'dive into style with abibas swimming gear.',
                 images: []
             },
             {
-                name: 'Snowboarding',
-                slug: 'Snowboarding',
-                description: 'Conquer the snowy slopes with Abibas Snowboarding gear.',
+                name: 'snowboarding',
+                slug: 'snowboarding',
+                description: 'conquer the snowy slopes with abibas snowboarding gear.',
                 images: []
             },
             {
-                name: 'Skateboarding',
-                slug: 'Skateboarding',
-                description: 'Ride the streets in style with Abibas Skateboarding essentials.',
+                name: 'skateboarding',
+                slug: 'skateboarding',
+                description: 'ride the streets in style with abibas skateboarding essentials.',
                 images: []
             },
             {
-                name: 'Surfing',
-                slug: 'Surfing',
-                description: 'Catch the waves with Abibas Surfing collection.',
+                name: 'surfing',
+                slug: 'surfing',
+                description: 'catch the waves with abibas surfing collection.',
                 images: []
             },
             {
-                name: 'Volleyball',
-                slug: 'Volleyball',
-                description: 'Spike and serve with Abibas Volleyball essentials.',
+                name: 'volleyball',
+                slug: 'volleyball',
+                description: 'spike and serve with abibas volleyball essentials.',
                 images: []
             },
             {
-                name: 'Martial Arts',
-                slug: 'Martial-Arts',
-                description: 'Master the art with Abibas Martial Arts gear.',
+                name: 'martial arts',
+                slug: 'martial-arts',
+                description: 'master the art with abibas martial arts gear.',
                 images: []
             },
             {
-                name: 'Cricket',
-                slug: 'Cricket',
-                description: 'Hit it out of the park with Abibas Cricket essentials.',
+                name: 'cricket',
+                slug: 'cricket',
+                description: 'hit it out of the park with abibas cricket essentials.',
                 images: []
             },
             {
-                name: 'Baseball',
-                slug: 'Baseball',
-                description: 'Play ball with Abibas Baseball gear.',
+                name: 'baseball',
+                slug: 'baseball',
+                description: 'play ball with abibas baseball gear.',
                 images: []
             },
             {
-                name: 'Rugby',
-                slug: 'Rugby',
-                description: 'Tackle the field with Abibas Rugby essentials.',
+                name: 'rugby',
+                slug: 'rugby',
+                description: 'tackle the field with abibas rugby essentials.',
                 images: []
             },
         ]
@@ -273,276 +273,273 @@ async function main() {
     await prisma.series.createMany({
         data: [
             {
-                name: 'Night StarFall MK1',
-                slug: 'Night-Starfall-MK1',
-                description: 'This is Abibas Nighty',
+                name: 'night starfall mk1',
+                slug: 'night-starfall-mk1',
+                description: 'this is abibas nighty',
             },
             {
-                name: 'FireStorm X',
-                slug: 'FireStorm-X',
-                description: 'Experience the power of FireStorm X series.',
+                name: 'firestorm x',
+                slug: 'firestorm-x',
+                description: 'experience the power of firestorm x series.',
             },
             {
-                name: 'Lunar Eclipse Pro',
-                slug: 'Lunar-Eclipse-Pro',
-                description: 'Unleash the darkness with Lunar Eclipse Pro.',
+                name: 'lunar eclipse pro',
+                slug: 'lunar-eclipse-pro',
+                description: 'unleash the darkness with lunar eclipse pro.',
             },
             {
-                name: 'Thunderbolt Z',
-                slug: 'Thunderbolt-Z',
-                description: 'Feel the thunder with Thunderbolt Z series.',
+                name: 'thunderbolt z',
+                slug: 'thunderbolt-z',
+                description: 'feel the thunder with thunderbolt z series.',
             },
             {
-                name: 'TechNova Horizon',
-                slug: 'TechNova-Horizon',
-                description: 'Explore the limitless possibilities with TechNova Horizon.',
+                name: 'technova horizon',
+                slug: 'technova-horizon',
+                description: 'explore the limitless possibilities with technova horizon.',
             },
             {
-                name: 'Stealth Phantom X',
-                slug: 'Stealth-Phantom-X',
-                description: 'Enter the world of Stealth Phantom X series.',
+                name: 'stealth phantom x',
+                slug: 'stealth-phantom-x',
+                description: 'enter the world of stealth phantom x series.',
             },
             {
-                name: 'Quantum Fusion 9',
-                slug: 'Quantum-Fusion-9',
-                description: 'Experience quantum-level performance with Quantum Fusion 9.',
+                name: 'quantum fusion 9',
+                slug: 'quantum-fusion-9',
+                description: 'experience quantum-level performance with quantum fusion 9.',
             },
             {
-                name: 'Solar Flare V2',
-                slug: 'Solar-Flare-V2',
-                description: 'Ignite your gaming experience with Solar Flare V2.',
+                name: 'solar flare v2',
+                slug: 'solar-flare-v2',
+                description: 'ignite your gaming experience with solar flare v2.',
             },
             {
-                name: 'AeroBlade Pro',
-                slug: 'AeroBlade-Pro',
-                description: 'Achieve new heights with AeroBlade Pro series.',
+                name: 'aeroblade pro',
+                slug: 'aeroblade-pro',
+                description: 'achieve new heights with aeroblade pro series.',
             },
             {
-                name: 'HyperDrive Max',
-                slug: 'HyperDrive-Max',
-                description: 'Boost your productivity with HyperDrive Max series.',
+                name: 'hyperdrive max',
+                slug: 'hyperdrive-max',
+                description: 'boost your productivity with hyperdrive max series.',
             },
             {
-                name: 'Eternal Frost Elite',
-                slug: 'Eternal-Frost-Elite',
-                description: 'Embrace the coolness with Eternal Frost Elite.',
+                name: 'eternal frost elite',
+                slug: 'eternal-frost-elite',
+                description: 'embrace the coolness with eternal frost elite.',
             },
             {
-                name: 'Spectra Wave X',
-                slug: 'Spectra-Wave-X',
-                description: 'Ride the waves of innovation with Spectra Wave X series.',
+                name: 'spectra wave x',
+                slug: 'spectra-wave-x',
+                description: 'ride the waves of innovation with spectra wave x series.',
             },
             {
-                name: 'Blitzkrieg Pro',
-                slug: 'Blitzkrieg-Pro',
-                description: 'Dominate the battlefield with Blitzkrieg Pro series.',
+                name: 'blitzkrieg pro',
+                slug: 'blitzkrieg-pro',
+                description: 'dominate the battlefield with blitzkrieg pro series.',
             },
             {
-                name: 'Zenith Prime',
-                slug: 'Zenith-Prime',
-                description: 'Reach the pinnacle of performance with Zenith Prime series.',
+                name: 'zenith prime',
+                slug: 'zenith-prime',
+                description: 'reach the pinnacle of performance with zenith prime series.',
             },
             {
-                name: 'Inferno Fury GT',
-                slug: 'Inferno-Fury-GT',
-                description: 'Feel the heat with Inferno Fury GT series.',
+                name: 'inferno fury gt',
+                slug: 'inferno-fury-gt',
+                description: 'feel the heat with inferno fury gt series.',
             },
             {
-                name: 'Nebula Force X',
-                slug: 'Nebula-Force-X',
-                description: 'Unleash the cosmic power with Abibas Nebula Force X.',
+                name: 'nebula force x',
+                slug: 'nebula-force-x',
+                description: 'unleash the cosmic power with abibas nebula force x.',
             },
             {
-                name: 'Quantum Hypernova',
-                slug: 'Quantum-Hypernova',
-                description: 'Experience the next level of quantum gaming with Abibas Quantum Hypernova.',
+                name: 'quantum hypernova',
+                slug: 'quantum-hypernova',
+                description: 'experience the next level of quantum gaming with abibas quantum hypernova.',
             },
             {
-                name: 'Stealth Recon 5',
-                slug: 'Stealth-Recon-5',
-                description: 'Dominate the gaming battlefield with Abibas Stealth Recon 5.',
+                name: 'stealth recon 5',
+                slug: 'stealth-recon-5',
+                description: 'dominate the gaming battlefield with abibas stealth recon 5.',
             },
             {
-                name: 'Titan Vanguard',
-                slug: 'Titan-Vanguard',
-                description: 'Conquer new gaming heights with Abibas Titan Vanguard series.',
+                name: 'titan vanguard',
+                slug: 'titan-vanguard',
+                description: 'conquer new gaming heights with abibas titan vanguard series.',
             },
             {
-                name: 'Nova Blaze X',
-                slug: 'Nova-Blaze-X',
-                description: 'Ignite your gaming passion with Abibas Nova Blaze X.',
+                name: 'nova blaze x',
+                slug: 'nova-blaze-x',
+                description: 'ignite your gaming passion with abibas nova blaze x.',
             },
             {
-                name: 'Shadowblade Elite',
-                slug: 'Shadowblade-Elite',
-                description: 'Enter the elite world of gaming with Abibas Shadowblade Elite series.',
+                name: 'shadowblade elite',
+                slug: 'shadowblade-elite',
+                description: 'enter the elite world of gaming with abibas shadowblade elite series.',
             },
             {
-                name: 'Quantum Sonic Pro',
-                slug: 'Quantum-Sonic-Pro',
-                description: 'Immerse yourself in the sonic experience with Abibas Quantum Sonic Pro.',
+                name: 'quantum sonic pro',
+                slug: 'quantum-sonic-pro',
+                description: 'immerse yourself in the sonic experience with abibas quantum sonic pro.',
             },
             {
-                name: 'Horizon Spark X',
-                slug: 'Horizon-Spark-X',
-                description: 'Spark your gaming journey with Abibas Horizon Spark X.',
+                name: 'horizon spark x',
+                slug: 'horizon-spark-x',
+                description: 'spark your gaming journey with abibas horizon spark x.',
             },
             {
-                name: 'Nebula Blaze V2',
-                slug: 'Nebula-Blaze-V2',
-                description: 'Upgrade your gaming experience with Abibas Nebula Blaze V2.',
+                name: 'nebula blaze v2',
+                slug: 'nebula-blaze-v2',
+                description: 'upgrade your gaming experience with abibas nebula blaze v2.',
             },
             {
-                name: 'Quantum Strike GT',
-                slug: 'Quantum-Strike-GT',
-                description: 'Achieve gaming greatness with Abibas Quantum Strike GT.',
+                name: 'quantum strike gt',
+                slug: 'quantum-strike-gt',
+                description: 'achieve gaming greatness with abibas quantum strike gt.',
             },
             {
-                name: 'Solar Burst Pro',
-                slug: 'Solar-Burst-Pro',
-                description: 'Burst into the gaming scene with Abibas Solar Burst Pro.',
+                name: 'solar burst pro',
+                slug: 'solar-burst-pro',
+                description: 'burst into the gaming scene with abibas solar burst pro.',
             },
             {
-                name: 'AeroFlare Elite',
-                slug: 'AeroFlare-Elite',
-                description: 'Experience elite gaming with Abibas AeroFlare Elite series.',
+                name: 'aeroflare elite',
+                slug: 'aeroflare-elite',
+                description: 'experience elite gaming with abibas aeroflare elite series.',
             },
             {
-                name: 'HyperDrive Alpha X',
-                slug: 'HyperDrive-Alpha-X',
-                description: 'Alpha-level performance with Abibas HyperDrive Alpha X.',
+                name: 'hyperdrive alpha x',
+                slug: 'hyperdrive-alpha-x',
+                description: 'alpha-level performance with abibas hyperdrive alpha x.',
             },
             {
-                name: 'Inferno Blaze MK2',
-                slug: 'Inferno-Blaze-MK2',
-                description: 'Upgrade your gaming firepower with Abibas Inferno Blaze MK2.',
+                name: 'inferno blaze mk2',
+                slug: 'inferno-blaze-mk2',
+                description: 'upgrade your gaming firepower with abibas inferno blaze mk2.',
             },
             {
-                name: 'Zenithss Spectra V3',
-                slug: 'Zenith-Spectra-V3',
-                description: 'Elevate your gaming with Abibas Zenith Spectra V3.',
+                name: 'zenithss spectra v3',
+                slug: 'zenith-spectra-v3',
+                description: 'elevate your gaming with abibas zenith spectra v3.',
             },
             {
-                name: 'Quantumss Fusion Elite',
-                slug: 'Quantum-Fusion-Elite',
-                description: 'Elite gaming fusion with Abibas Quantum Fusion Elite.',
+                name: 'quantumss fusion elite',
+                slug: 'quantum-fusion-elite',
+                description: 'elite gaming fusion with abibas quantum fusion elite.',
             },
         ],
     });
     await prisma.events.createMany({
         data: [
             {
-                name: 'Ready Set-GO! Festival',
-                slug: 'Millennium Science School Halo Festival now ON!',
-                description: 'Join the excitement of the Ready Set-GO! Festival with Abibas.',
+                name: 'ready set-go! festival',
+                slug: 'millennium science school halo festival now on!',
+                description: 'join the excitement of the ready set-go! festival with abibas.',
                 images: [],
                 status: true,
                 beginDate: new Date('2023-12-20T00:00:00Z'),
                 endDate: new Date('2024-01-10T23:59:59Z'),
             },
             {
-                name: 'Christmas Sale',
+                name: 'christmas sale',
                 slug: 'christmas-sale',
-                description: 'Celebrate Christmas with special discounts!',
+                description: 'celebrate christmas with special discounts!',
                 images: [],
                 status: false,
                 beginDate: new Date('2023-12-25T00:00:00Z'),
                 endDate: new Date('2023-12-25T23:59:59Z'),
             },
             {
-                name: 'Jingle Bell on Jings!',
+                name: 'jingle bell on jings!',
                 slug: 'ning nung.. who is there?',
-                description: 'Jings your suprise discount on Christmast sale',
+                description: 'jings your surprise discount on christmast sale',
                 images: [],
                 status: true,
                 beginDate: new Date('2023-12-20T00:00:00Z'),
                 endDate: new Date('2024-01-10T23:59:59Z'),
             },
             {
-                name: 'New Year New Me',
-                slug: 'New Year a New Me',
-                description: 'Welcome the new year with showcases of talents and festivities!',
+                name: 'new year new me',
+                slug: 'new year a new me',
+                description: 'welcome the new year with showcases of talents and festivities!',
                 images: [],
                 status: true,
                 beginDate: new Date('2023-12-26T00:00:00Z'),
                 endDate: new Date('2024-01-05T23:59:59Z'),
             },
-
             {
-                name: 'Where All Miracle begin',
-                slug: 'Where All Miracle begin',
-                description: 'Where All Miracle begin',
+                name: 'where all miracle begin',
+                slug: 'where all miracle begin',
+                description: 'where all miracle begin',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-11T00:00:00Z'),
                 endDate: new Date('2024-01-20T23:59:59Z'),
             },
             {
-                name: 'Mystical Masquerade',
+                name: 'mystical masquerade',
                 slug: 'mystical-masquerade',
-                description: 'Unmask the mysteries at the Mystical Masquerade! A ball of intrigue and glamour awaits you.',
+                description: 'unmask the mysteries at the mystical masquerade! a ball of intrigue and glamour awaits you.',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-21T00:00:00Z'),
                 endDate: new Date('2024-01-30T23:59:59Z'),
             },
             {
-                name: 'Starlit Ethereum',
-                slug: 'Starlit Ethereum',
-                description: 'Starlit Ethereum',
+                name: 'starlit ethereum',
+                slug: 'starlit ethereum',
+                description: 'starlit ethereum',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-31T00:00:00Z'),
                 endDate: new Date('2024-02-10T23:59:59Z'),
             },
-
             {
-                name: 'Starry Night Revelry',
-                slug: 'Starry Night Revelry',
-                description: 'Starry Night Revelry',
+                name: 'starry night revelry',
+                slug: 'starry night revelry',
+                description: 'starry night revelry',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-01-26T00:00:00Z'),
                 endDate: new Date('2024-02-05T23:59:59Z'),
             },
             {
-                name: 'Bunny Chaser on board',
-                slug: 'Bunny Chaser on board',
-                description: 'Bunny Chaser on board',
+                name: 'bunny chaser on board',
+                slug: 'bunny chaser on board',
+                description: 'bunny chaser on board',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-06T00:00:00Z'),
                 endDate: new Date('2024-02-15T23:59:59Z'),
             },
             {
-                name: 'KDA All Out!',
-                slug: 'KDA All Out!',
-                description: 'KDA All Out!',
+                name: 'kda all out!',
+                slug: 'kda all out!',
+                description: 'kda all out!',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-16T00:00:00Z'),
                 endDate: new Date('2024-02-25T23:59:59Z'),
             },
-
             {
-                name: 'An Unconcealed Heart',
-                slug: 'An Unconcealed Heart',
-                description: 'An Unconcealed Heart',
+                name: 'an unconcealed heart',
+                slug: 'an unconcealed heart',
+                description: 'an unconcealed heart',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-10T00:00:00Z'),
                 endDate: new Date('2024-02-20T23:59:59Z'),
             },
             {
-                name: 'Starry Serenity Soirée',
-                slug: 'Starry Serenity Soirée',
-                description: 'Starry Serenity Soirée',
+                name: 'starry serenity soirée',
+                slug: 'starry serenity soirée',
+                description: 'starry serenity soirée',
                 images: [],
                 status: false,
                 beginDate: new Date('2024-02-21T00:00:00Z'),
                 endDate: new Date('2024-02-29T23:59:59Z'),
             },
-        ]
+        ],
     });
 
 
