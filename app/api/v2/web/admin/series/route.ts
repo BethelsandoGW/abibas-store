@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkApiKey } from "@/lib/CryptoLib";
 import prisma from "@/lib/prisma";
+import { checkApiKey } from "@/lib/CryptoLib";
 
 type QueryResultType = {
     _count: {
         products: number
     }
-} & CategoriesModelType
+} & SeriesModelType
 
-export type WebCategoriesPageResponse = {
+export type WebSeriesPageResponse = {
     message: string,
     data: QueryResultType[]
 }
@@ -43,14 +43,14 @@ export async function GET(req: NextRequest) {
 
     if (idParam) {
         try {
-            const queryResult: CategoriesModelType | null = await prisma.categories.findFirst({
+            const queryResult: SeriesModelType | null = await prisma.series.findFirst({
                 where: {
                     id: idParam
                 }
             });
             if (!queryResult) {
                 return NextResponse.json({
-                    message: 'Categories not Found'
+                    message: 'Series not Found'
                 }, { status: 404 });
             }
             return NextResponse.json({
@@ -65,23 +65,23 @@ export async function GET(req: NextRequest) {
         }
     } else if (checkParam) {
         try {
-            const queryResult: CategoriesModelType | null = await prisma.categories.findUnique({
+            const queryResult: GenresModelType | null = await prisma.series.findUnique({
                 where: {
-                    name: checkParam.toLowerCase()
+                    name: checkParam
                 }
             });
             if (queryResult) {
                 return NextResponse.json({
-                    message: 'Category name already exist!'
+                    message: 'Series name already exist!'
                 }, { status: 409 });
             }
 
             return NextResponse.json({
-                message: 'Category name can be used'
+                message: 'Series name can be used'
             }, { status: 200 });
         } catch (error) {
             return NextResponse.json({
-                message: 'An Error Occurred while querying to Database'
+                message: 'An Occurred while querying to Database'
             }, { status: 500 });
         }
     }
@@ -97,7 +97,7 @@ export async function GET(req: NextRequest) {
         ? takeQuery * Number(pageParam)
         : undefined;
     try {
-        const queryResult: QueryResultType[] = await prisma.categories.findMany({
+        const queryResult: QueryResultType[] = await prisma.series.findMany({
             include: {
                 _count: {
                     select: {
@@ -115,7 +115,7 @@ export async function GET(req: NextRequest) {
         });
     } catch (error) {
         return NextResponse.json({
-            message: 'An Error Occurred while querying to Database'
+            message: 'An Occurred while querying to Database'
         }, { status: 500 });
     }
 }
