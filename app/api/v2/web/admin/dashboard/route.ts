@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
-import { apiKeyCheck } from "@/lib/CryptoLib";
+import { checkApiKey } from "@/lib/CryptoLib";
 
 type QueriesResultType = [
     {
@@ -59,13 +58,25 @@ export async function GET(req: NextRequest): Promise<NextResponse<WebDashboardPa
             message: `You Shouldn't here man..`
         }, { status: 403 });
     }
-    const apiKeyTest: { ok: boolean, message: string } = await apiKeyCheck(headerKey);
+    try {
+        const { iv, key } = JSON.parse(headerKey);
+        if (!iv || !key ) {
+            return NextResponse.json({
+                message: 'Invalid API Key man... Ganbare Ganbare :D'
+            }, { status: 403 });
+        }
+    } catch (error: any) {
+        return NextResponse.json({
+            message: 'Whoops.. we have some challenger huh'
+        }, { status: 403 });
+    }
+    const apiKeyTest: { ok: boolean, message: string } = await checkApiKey(headerKey);
     if (!apiKeyTest.ok) {
         return NextResponse.json({
-            message: apiKeyTest.message ?? 'Invalid API KEY'
+            message: apiKeyTest.message
         }, { status: 401 });
     }
-    revalidatePath('/api/v2/web/dashboard');
+
     try {
         const audiencesQuery = async (): Promise<{ count: number, data: AudiencesModelType | null }> => {
             const [ count, data ]: [ count: number, data: AudiencesModelType | null ] = await prisma.$transaction([

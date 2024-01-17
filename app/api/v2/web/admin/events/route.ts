@@ -6,14 +6,14 @@ type QueryResultType = {
     _count: {
         products: number
     }
-} & AudiencesModelType
+} & EventsModelType
 
-export type WebResponseAudiencesPage = {
+export type WebResponseEventsPage = {
     message: string,
     data: QueryResultType[]
 }
 
-export async function GET(req: NextRequest): Promise<NextResponse<WebResponseAudiencesPage | { message: string }>> {
+export async function GET(req: NextRequest): Promise<NextResponse<WebResponseEventsPage | { message: string }>> {
     const headerKey: string | null = req.headers.get('X-Api-Key');
     if (!headerKey) {
         return NextResponse.json({
@@ -44,14 +44,14 @@ export async function GET(req: NextRequest): Promise<NextResponse<WebResponseAud
 
     if (idParam) {
         try {
-            const queryResult: AudiencesModelType | null = await prisma.audiences.findFirst({
+            const queryResult: EventsModelType | null = await prisma.events.findFirst({
                 where: {
                     id: idParam
                 }
             });
             if (!queryResult) {
                 return NextResponse.json({
-                    message: 'Audience not Found'
+                    message: 'Event not Found'
                 }, { status: 404 });
             }
             return NextResponse.json({
@@ -66,19 +66,19 @@ export async function GET(req: NextRequest): Promise<NextResponse<WebResponseAud
         }
     } else if (checkParam) {
         try {
-            const queryResult: AudiencesModelType | null = await prisma.audiences.findUnique({
+            const queryResult: EventsModelType | null = await prisma.events.findUnique({
                 where: {
                     name: checkParam
                 }
             });
             if (queryResult) {
                 return NextResponse.json({
-                    message: 'Audience name already exist!'
+                    message: 'Event name already exist!'
                 }, { status: 409 });
             }
 
             return NextResponse.json({
-                message: 'Audience name can be used'
+                message: 'Event name can be used'
             }, { status: 200 });
         } catch (error) {
             return NextResponse.json({
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<WebResponseAud
     }
 
     try {
-        const queryResult: QueryResultType[] = await prisma.audiences.findMany({
+        const queryResult: QueryResultType[] = await prisma.events.findMany({
             include: {
                 _count: {
                     select: {
@@ -106,66 +106,4 @@ export async function GET(req: NextRequest): Promise<NextResponse<WebResponseAud
             message: 'An Error Occurred while querying data from Database'
         }, { status: 500 });
     }
-}
-
-export async function PATCH(req: NextRequest) {
-    const headerKey: string | null = req.headers.get('X-Api-Key');
-    if (!headerKey) {
-        return NextResponse.json({
-            message: `You Shouldn't here man..`
-        }, { status: 403 });
-    }
-    try {
-        const { iv, key } = JSON.parse(headerKey);
-        if (!iv || !key ) {
-            return NextResponse.json({
-                message: 'Invalid API Key man... Ganbare Ganbare :D'
-            }, { status: 403 });
-        }
-    } catch (error: any) {
-        return NextResponse.json({
-            message: 'Whoops.. we have some challenger huh'
-        }, { status: 403 });
-    }
-    const apiKeyTest: { ok: boolean, message: string } = await checkApiKey(headerKey);
-    if (!apiKeyTest.ok) {
-        return NextResponse.json({
-            message: apiKeyTest.message
-        }, { status: 401 });
-    }
-
-    const reqData = await req.json();
-    if (!reqData.id) {
-        return NextResponse.json({
-            msg: 'GG LU BANG'
-        }, { status: 400 });
-    }
-
-    const querySearch: AudiencesModelType | null = await prisma.audiences.findUnique({
-        where: {
-            id: reqData.id
-        }
-    });
-
-    const oldImages = querySearch?.images;
-
-    if (querySearch) {
-        return NextResponse.json({
-            msg: 'Ada orangnya bg'
-        }, { status: 400 });
-    }
-
-    await prisma.audiences.update({
-        where: {
-            id: reqData.id
-        },
-        data: {
-            name: reqData.name,
-            images: oldImages ? [ ...oldImages, reqData.images ] : [ ...reqData.images ]
-        }
-    });
-
-    return NextResponse.json({
-        msg: reqData
-    });
 }
