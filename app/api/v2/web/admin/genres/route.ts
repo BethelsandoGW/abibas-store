@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkApiKey } from "@/lib/CryptoLib";
 import prisma from "@/lib/prisma";
+import { checkApiKey } from "@/lib/CryptoLib";
 
 type QueryResultType = {
     _count: {
         products: number
     }
-} & CategoriesModelType
+} & GenresModelType
 
-export type WebCategoriesPageResponse = {
+export type WebGenresPageResponse = {
     message: string,
     data: QueryResultType[]
 }
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
 
     if (idParam) {
         try {
-            const queryResult: CategoriesModelType | null = await prisma.categories.findFirst({
+            const queryResult: GenresModelType | null = await prisma.genres.findFirst({
                 where: {
                     id: idParam
                 }
@@ -65,23 +65,23 @@ export async function GET(req: NextRequest) {
         }
     } else if (checkParam) {
         try {
-            const queryResult: CategoriesModelType | null = await prisma.categories.findUnique({
+            const queryResult: GenresModelType | null = await prisma.genres.findUnique({
                 where: {
-                    name: checkParam.toLowerCase()
+                    name: checkParam
                 }
             });
             if (queryResult) {
                 return NextResponse.json({
-                    message: 'Category name already exist!'
+                    message: 'Genres name already exist!'
                 }, { status: 409 });
             }
 
             return NextResponse.json({
-                message: 'Category name can be used'
+                message: 'Genres name can be used'
             }, { status: 200 });
         } catch (error) {
             return NextResponse.json({
-                message: 'An Error Occurred while querying to Database'
+                message: 'An Occurred while querying to Database'
             }, { status: 500 });
         }
     }
@@ -97,7 +97,7 @@ export async function GET(req: NextRequest) {
         ? takeQuery * Number(pageParam)
         : undefined;
     try {
-        const queryResult: QueryResultType[] = await prisma.categories.findMany({
+        const queryResult: QueryResultType[] = await prisma.genres.findMany({
             include: {
                 _count: {
                     select: {
@@ -115,7 +115,7 @@ export async function GET(req: NextRequest) {
         });
     } catch (error) {
         return NextResponse.json({
-            message: 'An Error Occurred while querying to Database'
+            message: 'An Occurred while querying to Database'
         }, { status: 500 });
     }
 }
