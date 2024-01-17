@@ -17,6 +17,7 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "no-undef": "off",
     "arrow-spacing": "error",
     "prefer-arrow-callback": "error",
     "object-curly-spacing": ["error", "always"],
