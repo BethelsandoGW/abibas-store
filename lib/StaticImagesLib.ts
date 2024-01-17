@@ -13,9 +13,11 @@ import Shiroko1L from "@/public/assets/images/20230905_150623.webp";
 import AronaPlana1P from "@/public/assets/images/20230909_213827.webp";
 import HaloFest1L from "@/public/assets/images/36e1064e4ded68c9017a024cfe408dad.webp";
 import HaloFest2L from "@/public/assets/images/6df6a8e49e15bd7dc8a343a567ca59f3.webp";
+import ChickenImg from "@/public/assets/images/chicken.png";
 import AbibasLogo from "@/public/assets/images/abibas-logo.webp";
+import DualRingLoading from "@/public/assets/images/Dual Ring-loading.gif";
 import { StaticImageData } from "next/image";
-export const ImagesAll: StaticImageData[] = [
+export const AllImages: StaticImageData[] = [
     Haruna1L,
     Haruna2L,
     Haruna3L,
@@ -50,23 +52,25 @@ export {
     AronaPlana1P,
     HaloFest1L,
     HaloFest2L,
+    ChickenImg,
+    DualRingLoading
 };
-export const ImagesHaruna: StaticImageData[] = [
+export const HarunaImages: StaticImageData[] = [
     Haruna1L,
     Haruna2L,
     Haruna3L,
     Haruna4L,
 ];
-export const ImagesMari: StaticImageData[] = [
+export const MariImages: StaticImageData[] = [
     Mari1L,
     Mari2L,
 ];
-export const ImagesNoa: StaticImageData[] = [
+export const NoaImages: StaticImageData[] = [
     Noa1L,
     Noa2L,
     Noa3L,
 ];
-export const ImagesRio: StaticImageData[] = [
+export const RioImages: StaticImageData[] = [
     Rio1L,
     Rio2L,
 ];
