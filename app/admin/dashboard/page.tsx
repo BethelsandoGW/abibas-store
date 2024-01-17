@@ -1,23 +1,110 @@
 import Image from "next/image";
-import { Noa2L, Rio1L, Rio2L } from "@/lib/StaticImagesLib";
+import { ChickenImg, Haruna2L, Noa2L, Rio1L } from "@/lib/StaticImagesLib";
 import Link from "next/link";
 import { dateFormat } from "@/lib/DateFormatLib";
-import { WebDashboardResponseType } from "@/app/api/v2/web/admin/dashboard/route";
+import { WEB_ERROR_CAUSE, WEB_ERROR_MESSAGE } from "@/lib/ErrorsLib";
+import prisma from "@/lib/prisma";
 
 const getDashboardData = async () => {
-    const res: Response =  await fetch(`${ process.env.MY_WEBAPI_URL }/admin/dashboard`, {
-        method: 'GET',
-        cache: 'no-store'
-    });
-    if (!res.ok) {
-        throw new Error('H3H3');
-    }
-    return res.json();
-};
-const DashboardPage = async () => {
-    const dashboardRes: WebDashboardResponseType = await getDashboardData();
-    const dashboardData = { ...dashboardRes.data };
+    try {
+        const audiencesQuery = async (): Promise<{ count: number, data: AudiencesModelType | null }> => {
+            const [ count, data ]: [ count: number, data: AudiencesModelType | null ] = await prisma.$transaction([
+                prisma.audiences.count(),
+                prisma.audiences.findFirst({
+                    take: -1
+                })
+            ]);
+            return {
+                count: count,
+                data: data
+            };
+        };
+        const categoriesQuery = async (): Promise<{ count: number, data: CategoriesModelType | null }> => {
+            const [ count, data ]: [ count: number, data: CategoriesModelType | null ] = await prisma.$transaction([
+                prisma.categories.count(),
+                prisma.categories.findFirst({
+                    take: -1
+                })
+            ]);
+            return {
+                count: count,
+                data: data
+            };
+        };
+        const genresQuery = async (): Promise<{ count: number, data: GenresModelType | null }> => {
+            const [ count, data ]: [ count: number, data: GenresModelType | null ] = await prisma.$transaction([
+                prisma.genres.count(),
+                prisma.genres.findFirst({
+                    take: -1
+                })
+            ]);
+            return {
+                count: count,
+                data: data
+            };
+        };
+        const seriesQuery = async (): Promise<{ count: number, data: SeriesModelType | null }> => {
+            const [ count, data ]: [ count: number, data: SeriesModelType | null ] = await prisma.$transaction([
+                prisma.series.count(),
+                prisma.series.findFirst({
+                    take: -1
+                })
+            ]);
+            return {
+                count: count,
+                data: data
+            };
+        };
+        const productsQuery = async (): Promise<{ count: number, data: ProductsModelType | null }> => {
+            const [ count, data ]: [ count: number, data: ProductsModelType | null ] = await prisma.$transaction([
+                prisma.products.count(),
+                prisma.products.findFirst({
+                    take: -1
+                })
+            ]);
+            return {
+                count: count,
+                data: data
+            };
+        };
+        const eventsQuery = async (): Promise<{ count: number, ongoing: number }> => {
+            const [ allCount, ongoingCount ]: [ allCount: number, ongoingcount: number ] = await prisma.$transaction([
+                prisma.events.count(),
+                prisma.events.count({
+                    where: {
+                        status: true
+                    }
+                })
+            ]);
+            return {
+                count: allCount,
+                ongoing: ongoingCount
+            };
+        };
+        const queries = await Promise.all([
+            await audiencesQuery(),
+            await categoriesQuery(),
+            await genresQuery(),
+            await seriesQuery(),
+            await productsQuery(),
+            await eventsQuery()
+        ]);
+        return {
+            audiences: queries[0],
+            categories: queries[1],
+            genres: queries[2],
+            series: queries[3],
+            products: queries[4],
+            events: queries[5],
+        };
 
+    } catch (error) {
+        throw new Error(WEB_ERROR_MESSAGE.DATABASE_ERROR, { cause: WEB_ERROR_CAUSE.DATABASE_ERROR });
+    }
+};
+
+const DashboardPage = async () => {
+    const dashboardData = await getDashboardData();
     return (
         <>
             <div className="space-y-10">
@@ -173,7 +260,7 @@ const DashboardPage = async () => {
                                 <p className="text-xl text-right font-bold truncate">
                                     {
                                         dashboardData.events.count
-                                            ? `${ dashboardData.events.count } Events`
+                                            ? `${ dashboardData.events.count } Event`
                                             : ' 0 Event '
                                     }
                                 </p>
@@ -190,112 +277,160 @@ const DashboardPage = async () => {
                 </section>
 
                 <section className="space-y-3 select-none">
-                    <div className="flex flex-col md:flex-row justify-between items-center lg:items-start gap-x-5 gap-y-4">
-                        <div className="relative group w-11/12 lg:w-80 aspect-[5/4] transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden">
+                    <div className="w-full flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-evenly lg:justify-between items-center lg:items-start gap-x-3 gap-y-10">
+                        <div className="w-full sm:w-96 md:w-80 lg:w-80 aspect-[5/4] relative group transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden bg-neutral-100">
                             <div className="absolute z-10 -top-1 -left-1.5 px-3 py-1 -skew-x-[22deg] rounded-r-md text-white bg-neutral-900">
-                                Latest Products
+                                Latest Product
                             </div>
                             <Image
-                                src={Rio1L}
+                                src={
+                                dashboardData.products.data
+                                    ? Rio1L
+                                    : ChickenImg
+                                }
                                 alt=""
-                                fill
-                                style={{
-                                    objectFit: 'cover',
-                                    objectPosition: 'center'
-                                }}
+                                fill={!!dashboardData.products.data}
+                                className={
+                                    dashboardData.products.data
+                                        ? 'object-cover object-center'
+                                        : 'w-4/12 aspect-square absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'
+                                }
                             />
-                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly  bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                                 <h1 className="justify-self-center mx-8 font-semibold text-zinc-100 text-lg text-center truncate capitalize">
-                                    {` Abibas Night Star Fall MK I `}
+                                    {
+                                        dashboardData.products.data?.name ?? 'No Product yet'
+                                    }
                                 </h1>
                                 <div className="text-center text-white">
-                                    <Link
-                                        href={`/admin`}
-                                        className="peer"
-                                    >
-                                        <iconify-icon
-                                            width={45}
-                                            icon="mdi:arrow-right-circle"
-                                        />
-                                    </Link>
+                                    {
+                                        dashboardData.products.data && (
+                                            <Link
+                                                href={`/admin`}
+                                                className="peer"
+                                            >
+                                                <iconify-icon
+                                                    width={45}
+                                                    icon="mdi:arrow-right-circle"
+                                                />
+                                            </Link>
+                                        )
+                                    }
                                     <p className="text-sm tracking-tighter -mt-2 peer-hover:opacity-100 opacity-0 transition-opacity duration-150">
                                         Check details
                                     </p>
                                 </div>
                                 <p className="font-mono text-sm font-semibold text-white">
-                                    {` Updated on: 2022-01-01 `}
+                                    Updated on:
+                                    {
+                                        dashboardData.products.data?.updatedAt
+                                            ? ` ${dateFormat(dashboardData.products.data.updatedAt.toString())}`
+                                            : ' -'
+                                    }
                                 </p>
                             </div>
                         </div>
-                        <div className="relative group w-11/12 lg:w-80 aspect-[5/4] transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden">
+                        <div className="w-full sm:w-96 md:w-80 lg:w-80 aspect-[5/4] relative group transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden bg-neutral-100">
                             <div className="absolute z-10 -top-1 -left-1.5 px-3 py-1 -skew-x-[22deg] rounded-r-md text-white bg-neutral-900">
                                 Latest Series
                             </div>
                             <Image
-                                src={Noa2L}
+                                src={
+                                    dashboardData.series.data
+                                        ? Noa2L
+                                        : ChickenImg
+                                }
                                 alt=""
-                                fill
-                                style={{
-                                    objectFit: 'cover',
-                                    objectPosition: 'center'
-                                }}
+                                fill={!!dashboardData.series.data}
+                                className={
+                                    dashboardData.series.data
+                                        ? 'object-cover object-center'
+                                        : 'w-4/12 aspect-square absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'
+                                }
                             />
-                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly  bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                                 <h1 className="justify-self-center mx-8 font-semibold text-zinc-100 text-lg text-center truncate capitalize">
-                                    {` Pict 2 `}
+                                    {
+                                        dashboardData.series.data?.name ?? 'No Product yet'
+                                    }
                                 </h1>
                                 <div className="text-center text-white">
-                                    <Link
-                                        href={`/admin`}
-                                        className="peer"
-                                    >
-                                        <iconify-icon
-                                            width={45}
-                                            icon="mdi:arrow-right-circle"
-                                        />
-                                    </Link>
+                                    {
+                                        dashboardData.series.data && (
+                                            <Link
+                                                href={`/admin/series${ dashboardData.series.data.id }`}
+                                                className="peer"
+                                            >
+                                                <iconify-icon
+                                                    width={45}
+                                                    icon="mdi:arrow-right-circle"
+                                                />
+                                            </Link>
+                                        )
+                                    }
                                     <p className="text-sm tracking-tighter -mt-2 peer-hover:opacity-100 opacity-0 transition-opacity duration-150">
                                         Check details
                                     </p>
                                 </div>
                                 <p className="font-mono text-sm font-semibold text-white">
-                                    {` Updated on: 2022-02-01 `}
+                                    Updated on:
+                                    {
+                                        dashboardData.series.data?.updatedAt
+                                            ? ` ${dateFormat(dashboardData.series.data.updatedAt.toString(), 'YYYY-MM-DD')}`
+                                            : ' -'
+                                    }
                                 </p>
                             </div>
                         </div>
-                        <div className="relative group w-11/12 lg:w-80 aspect-[5/4] transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden">
+                        <div className="w-full sm:w-96 md:w-80 lg:w-80 aspect-[5/4] relative group transition-all duration-300 ease-in-out rounded-md ring-[3px] ring-neutral-900 shadow-sm shadow-zinc-500 overflow-hidden bg-neutral-100">
                             <div className="absolute z-10 -top-1 -left-1.5 px-3 py-1 -skew-x-[22deg] rounded-r-md text-white bg-neutral-900">
-                                Latest Events
+                                Latest Genre
                             </div>
                             <Image
-                                src={Rio2L}
+                                src={
+                                dashboardData.genres.data
+                                    ? Haruna2L
+                                    : ChickenImg
+                                }
                                 alt=""
-                                fill
-                                style={{
-                                    objectFit: 'cover',
-                                    objectPosition: 'center'
-                                }}
+                                fill={!!dashboardData.genres.data}
+                                className={
+                                    dashboardData.genres.data
+                                        ? 'object-cover object-center'
+                                        : 'w-4/12 aspect-square absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2'
+                                }
                             />
-                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly  bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                            <div className="absolute z-20 top-0 bottom-0 left-0 w-full flex flex-col items-center justify-evenly bg-neutral-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                                 <h1 className="justify-self-center mx-8 font-semibold text-zinc-100 text-lg text-center truncate capitalize">
-                                    {` Pict 3 `}
+                                    {
+                                        dashboardData.genres.data?.name ?? 'No Product yet'
+                                    }
                                 </h1>
                                 <div className="text-center text-white">
-                                    <Link
-                                        href={`/admin`}
-                                        className="peer"
-                                    >
-                                        <iconify-icon
-                                            width={45}
-                                            icon="mdi:arrow-right-circle"
-                                        />
-                                    </Link>
+                                    {
+                                        dashboardData.genres.data && (
+                                            <Link
+                                                href={`/admin`}
+                                                className="peer"
+                                            >
+                                                <iconify-icon
+                                                    width={45}
+                                                    icon="mdi:arrow-right-circle"
+                                                />
+                                            </Link>
+                                        )
+                                    }
                                     <p className="text-sm tracking-tighter -mt-2 peer-hover:opacity-100 opacity-0 transition-opacity duration-150">
                                         Check details
                                     </p>
                                 </div>
                                 <p className="font-mono text-sm font-semibold text-white">
-                                    {` Updated on: 2022-01-01 `}
+                                    Updated on:
+                                    {
+                                        dashboardData.genres.data?.updatedAt
+                                            ? ` ${dateFormat(dashboardData.genres.data.updatedAt.toString(), 'YYYY-MM-DD')}`
+                                            : ' -'
+                                    }
                                 </p>
                             </div>
                         </div>
