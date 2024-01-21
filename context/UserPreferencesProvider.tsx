@@ -6,10 +6,10 @@ import { USER_PREFERENCES } from "@/lib/UserPreferencesVariable";
 
 export const UserPreferencesContext = createContext<UserPreferencesContextType | null>(null);
 export type UserPreferencesContextType = {
-    userPreferencesState: UserPreferencesState,
+    userPreferencesState: UserPreferencesStateType,
     userPreferencesDispatch: Dispatch<UserPreferencesReducerType>
 };
-interface UserPreferencesState {
+interface UserPreferencesStateType {
     settingsOpen: boolean,
     theme: string,
     sideNavMainColor: string,
@@ -20,7 +20,7 @@ interface UserPreferencesState {
     navbarColor: string,
     navbarOpacity: string
 }
-interface ActionSettingsOpen {
+interface ActionToggleSettings {
     type: 'TOGGLE_SETTINGS'
 }
 interface ActionToggleTheme {
@@ -55,9 +55,11 @@ interface ActionNavbarOpacity {
     type: 'TOGGLE_NAVBAR_OPACITY',
     payload: string
 }
-type UserPreferencesReducerType = ActionToggleTheme | ActionSettingsOpen | ActionSideNavMainColor | ActionSideNavSubColor | ActionSideNavOpacity | ActionNavbarColor | ActionNavbarFixed | ActionNavbarRecall | ActionNavbarOpacity
+type UserPreferencesReducerType = ActionToggleTheme | ActionToggleSettings | ActionSideNavMainColor
+    | ActionSideNavSubColor | ActionSideNavOpacity | ActionNavbarColor | ActionNavbarFixed
+    | ActionNavbarRecall | ActionNavbarOpacity
 const UserPreferencesProvider = ({ children }: { children: ReactNode }) => {
-    const userPreferencesReducer = (state: UserPreferencesState, action: UserPreferencesReducerType) => {
+    const userPreferencesReducer = (state: UserPreferencesStateType, action: UserPreferencesReducerType) => {
         switch (action.type) {
             case 'TOGGLE_THEME':
                 return {
