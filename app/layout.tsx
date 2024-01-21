@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import Script from "next/script";
 import { NextFont } from "next/dist/compiled/@next/font";
 import UserPreferencesProvider from "@/context/UserPreferencesProvider";
+import { ChakraUiProvider } from "@/context/ChakraUiProvider";
 
 const poppins: NextFont = Poppins({
     style: 'normal',
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <html lang="id">
             <Script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"/>
             <body className={poppins.className}>
-                <UserPreferencesProvider>
-                    { children }
-                </UserPreferencesProvider>
+                <ChakraUiProvider>
+                    <UserPreferencesProvider>
+                        { children }
+                    </UserPreferencesProvider>
+                </ChakraUiProvider>
             </body>
         </html>
     );
