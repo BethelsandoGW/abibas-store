@@ -3,9 +3,8 @@ import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from "react"
 import { z, ZodError } from "zod";
 import { WEB_ERROR_CAUSE, WEB_ERROR_MESSAGE } from "@/lib/ErrorsLib";
 import { useNotificationToastContext } from "@/hooks/useNotificationToastContext";
-import { eventsCreateData, eventsNameCheck, imagesProcess } from "@/app/admin/events/create/EventsServerAction";
+import { eventsCreateData, eventsNameCheck, imagesProcess } from "@/app/admin/events/EventsServerAction";
 import EventsImagesPreview from "@/app/admin/events/create/EventsImagesPreview";
-import { StaticDateTimePicker } from "@mui/x-date-pickers";
 import moment from "moment-timezone";
 
 type formStateType = {
@@ -370,7 +369,7 @@ const EventsCreateForm = () => {
                             ref={nameInputRef}
                             type="text"
                             pattern="([a-zA-Z][a-zA-Z0-9\s]*){1,}"
-                            className={`w-full h-full p-2 peer border-[2px] ${getNameInputClass ()} aria-[invalid=true]:border-red-600 transition-all duration-200 ease-in-out bg-transparent outline-none rounded-md ${ formState.name.isChecking ? 'opacity-40' : 'opacity-100'}`}
+                            className={`w-full h-full p-2 peer border-[2px] ${getNameInputClass ()} aria-[invalid=true]:border-red-600 transition-all duration-200 ease-in-out bg-transparent outline-none rounded-md ${formState.name.isChecking ? 'opacity-40' : 'opacity-100'}`}
                             disabled={formState.name.isChecking}
                             value={formState.name.value}
                             aria-invalid={formState.name.isFilled === false || formState.name.isValid === false || formState.name.isVerified === false}
@@ -410,7 +409,7 @@ const EventsCreateForm = () => {
                                         : formState.name.isValid && (formState.name.isVerified === null)
                                             ? 'hidden'
                                             : 'block'
-                            } absolute text-xs left-1 -bottom-4 ${ formState.name.isVerified && formState.name.isValid ? 'text-green-600' : 'text-red-600'}  font-sans font-bold`
+                            } absolute text-xs left-1 -bottom-4 ${formState.name.isVerified && formState.name.isValid ? 'text-green-600' : 'text-red-600'}  font-sans font-bold`
                         }>
                             {
                                 formState.name.isFilled === false
@@ -424,7 +423,7 @@ const EventsCreateForm = () => {
                         </p>
                         <span className="absolute -right-8 md:-right-7 top-2">
                             <iconify-icon
-                                icon={ formState.name.isChecking
+                                icon={formState.name.isChecking
                                     ? 'line-md:loading-twotone-loop'
                                     : formState.name.isVerified === null
                                         ? 'line-md:question'
@@ -546,6 +545,25 @@ const EventsCreateForm = () => {
                         </p>
                     </div>
 
+                    <div className="relative">
+                        <input type="datetime-local"
+                               value={moment.utc(formState.beginDate.value).format ('yyyy-MM-DDTHH:mm')} disabled/>
+                        <button
+                            type="button"
+                            aria-hidden={true}
+                            className="peer absolute top-0 bottom-0 right-0.5 bg-red-600 flex items-center justify-center"
+                            onClick={(event) => {
+                                event.currentTarget.ariaHidden = 'false';
+                            }}
+                        >
+                            <iconify-icon
+                                icon="mdi:calendar-month"
+                                width={25}
+                            />
+                        </button>
+
+                    </div>
+
                     <div className="flex flex-row items-center justify-start gap-x-2">
                         <button
                             aria-disabled={formState.name.isVerified !== true || formState.slug.isFilled !== true || formState.description.isFilled !== true}
@@ -572,7 +590,7 @@ const EventsCreateForm = () => {
                             {formState.message}!
                             <span
                                 onClick={() => {
-                                    setFormState((prevState) => ({
+                                    setFormState ((prevState) => ({
                                         ...prevState,
                                         message: ''
                                     }));
@@ -582,27 +600,7 @@ const EventsCreateForm = () => {
                         </p>
                     </div>
 
-                    <div>
-                        <input type="datetime-local" value={moment.utc(formState.beginDate.value).format('yyyy-MM-DDTHH:mm')} disabled/>
-                        <StaticDateTimePicker
-                            className="absolute"
-                            orientation="landscape"
-                            timezone={'Asia/Jakarta'}
-                            ampmInClock={false}
-                            onAccept={(event: any) => {
-                                if (event) {
-                                    const daa = event._d as Date;
-                                    console.log(moment(daa).format('YYYY-MM-DDTHH:mm:ss[Z]'));
-                                }
-                            }}
-                            onChange={(event: any) => {
-                                if (event) {
-                                    const daa = event._d as Date;
-                                    console.log(moment(daa).format('YYYY-MM-DDTHH:mm:ss[Z]'));
-                                }
-                            }}
-                        />
-                    </div>
+
                 </form>
                 <section
                     className="basis-1/2 lg:basis-96 mx-auto w-10/12 md:w-[28rem] lg:w-11/12 flex flex-col gap-5 items-center lg:items-end justify-start overflow-hidden border-l-0 md:border-l-[3px] border-dashed border-neutral-900 transition-all duration-200 ease-in-out">

@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { signUpAction } from "@/app/(account)/AccountServerActions";
+import { signOut } from "next-auth/react";
 
 
 export const SignUpComponents = ({ rolesData }: { rolesData: RolesModelType[]}) => {
+    signOut();
     const formInitialState: {
         fullname: {
             value: string

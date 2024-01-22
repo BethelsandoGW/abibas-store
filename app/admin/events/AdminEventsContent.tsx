@@ -4,9 +4,11 @@ import AdminContentHeading from "@/app/components/AdminContentHeading";
 import { AdminEventDataType } from "@/app/admin/events/page";
 import AdminEventsCard from "@/app/admin/events/AdminEventsCard";
 import AdminEventsTable from "@/app/admin/events/AdminEventsTable";
+import { useState } from "react";
 
-const AdminEventsContent = ({ eventsData, webKey }: { eventsData: AdminEventDataType[], webKey: { key: string | null, iv: string | null } }) => {
+const AdminEventsContent = ({ eventsDataProps, webKey }: { eventsDataProps: AdminEventDataType[], webKey: { key: string | null, iv: string | null } }) => {
     const { adminViewMode, setAdminViewMode } = useAdminViewModeContext();
+    const [ eventsData, setEventsData ] = useState<AdminEventDataType[]>(eventsDataProps);
 
     return (
         <>
@@ -20,7 +22,7 @@ const AdminEventsContent = ({ eventsData, webKey }: { eventsData: AdminEventData
                 adminViewMode === 'CARD'
                     ? <AdminEventsCard eventData={eventsData} webKey={webKey} />
                     : adminViewMode === 'TABLE'
-                        ? <AdminEventsTable eventData={eventsData} />
+                        ? <AdminEventsTable eventsDataProps={eventsData} setEventsDataProps={setEventsData} />
                         : <AdminEventsCard eventData={eventsData} webKey={webKey}/>
             }
         </>
