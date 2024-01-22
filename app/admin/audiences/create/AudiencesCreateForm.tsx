@@ -5,12 +5,12 @@ import {
     checkUniqueName,
     formServerAction,
     imagesProcess
-} from "@/app/admin/audiences/create/CreateAudiencesServerAction";
+} from "@/app/admin/audiences/create/AudiencesServerAction";
 import ImagePreview from "@/app/admin/categories/create/CategoriesImagesPreview";
 import { WEB_ERROR_CAUSE, WEB_ERROR_MESSAGE } from "@/lib/ErrorsLib";
 import { useNotificationToastContext } from "@/hooks/useNotificationToastContext";
 
-type formStateType = {
+type FormStateType = {
     name: {
         value: string,
         isValid: boolean | null
@@ -19,21 +19,36 @@ type formStateType = {
         isVerified: boolean | null
     },
     onSubmit: boolean
-    status: string
+    status: boolean | null
+    message: string
 }
-const CreateAudiencesForm = () => {
-    const { setNotificationToast } = useNotificationToastContext();
-    const [ formState, setFormState ] = useState<formStateType>({
+const AudiencesCreateForm = () => {
+    const formInitialState: FormStateType = {
         name: {
             value: '',
-            isFilled: null,
             isValid: null,
+            isFilled: null,
             isChecking: false,
             isVerified: null
         },
         onSubmit: false,
-        status: ''
-    });
+        status: null,
+        message: ''
+    };
+
+    const { setNotificationToast } = useNotificationToastContext();
+    const [ formState, setFormState ] = useState<{
+        name: {
+            value: string,
+            isValid: boolean | null
+            isFilled: boolean | null
+            isChecking: boolean
+            isVerified: boolean | null
+        },
+        onSubmit: boolean
+        status: boolean | null
+        message: string
+    }>(formInitialState);
     const [ imagesUpload, setImagesUpload ] = useState<File[]>([]);
     const [ imagesCompressed, setImageCompressed ] = useState<{ count: number, data: string[], name: string[] }>({
         count: 0,
@@ -41,7 +56,7 @@ const CreateAudiencesForm = () => {
         name: []
     });
     const nameInputRef = useRef<HTMLInputElement | null>(null);
-    const inputRegex: RegExp = /^[a-zA-Z0-9\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
+    const inputRegex: RegExp = /^(?=.*[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])[\sa-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
     const ACCEPTED_IMAGE_TYPES = [ "image/jpeg", "image/jpg", "image/png", "image/webp", "image/heic" ];
     const handleFilesUpload = (files: File[]) => {
         setNotificationToast((prevState) => ({
@@ -106,6 +121,12 @@ const CreateAudiencesForm = () => {
                     message: uploadImagesResponse.statusText,
                     play: true
                 }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    message: 'Images upload to server error',
+                    onSubmit: false,
+                    status: false
+                }));
                 return;
             }
             const uploadedImagesJson = await uploadImagesResponse.json();
@@ -137,27 +158,36 @@ const CreateAudiencesForm = () => {
                         setFormState((prevState) => ({
                             ...prevState,
                             onSubmit: false,
-                            status: res.message
+                            status: false,
+                            message: res.message
                         }));
                         return;
                     }
                     setFormState((prevState) => ({
                         ...prevState,
                         onSubmit: false,
-                        status: res.message
+                        status: true,
+                        message: res.message
                     }));
                 })
                 .catch((error) => {
+                    setNotificationToast((prevState) => ({
+                        ...prevState,
+                        slug: 'Form submit error',
+                        message: error.message ?? 'An error occurred while submit form',
+                        play: true
+                    }));
                     setFormState((prevState) => ({
                         ...prevState,
                         onSubmit: false,
-                        status: error.message
+                        status: false,
+                        message: error.message ?? 'An error occurred while submit form'
                     }));
                 });
         } catch (error: any) {
             const errorMessage: string = error instanceof ZodError
                 ? error.issues[0].message
-                : 'Anonymous error occurred';
+                : error.message.issues ?? 'An error occurred while submit form';
             setNotificationToast({
                 position: 'top-right',
                 slug: 'Invalid Data',
@@ -187,7 +217,7 @@ const CreateAudiencesForm = () => {
 
     useEffect(() => {
         const timeoutId = setTimeout(async () => {
-            if (formState.name.value.length > 0) {
+            if (formState.name.value.length > 0 && formState.name.isValid) {
                 setFormState((prevState) => ({
                     ...prevState,
                     name: {
@@ -448,4 +478,4 @@ const CreateAudiencesForm = () => {
 };
 
 
-export default CreateAudiencesForm;
+export default AudiencesCreateForm;

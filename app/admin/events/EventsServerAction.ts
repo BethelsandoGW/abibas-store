@@ -102,3 +102,33 @@ export async function imagesProcess(formData: FormData): Promise<{ name: string[
     }
 }
 
+export async function deleteEvents(id: string): Promise<{ status: boolean | null, message: string }> {
+    const { key, iv }: { key: string | null, iv: string | null } = getApiKey();
+    if (!key || !iv) {
+        return {
+            status: null,
+            message: 'An error occurred on Server'
+        };
+    }
+    const deleteFormData: FormData = new FormData();
+    deleteFormData.append('id', id);
+    const res: Response = await fetch(`${ process.env.MY_WEBAPI_URL }/admin/events`, {
+        method: 'DELETE',
+        headers: {
+            'X-Api-Key': JSON.stringify({ key: key, iv: iv })
+        },
+        cache: 'no-store',
+        body: deleteFormData
+    });
+    if (res.status === 500) {
+        return {
+            status: false,
+            message: res.statusText
+        };
+    }
+
+    return {
+        status: res.ok,
+        message: res.statusText
+    };
+}

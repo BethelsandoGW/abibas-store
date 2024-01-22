@@ -1,10 +1,21 @@
 import Image from "next/image";
 import { HaloFest2L } from "@/lib/StaticImagesLib";
 import dynamic from "next/dynamic";
+// @ts-ignore
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { redirect } from "next/navigation";
 const UserPrefsSettings = dynamic(() => import("@/app/components/UserPrefSettings"), { ssr: false });
 const Navbar = dynamic(() => import('@/app/components/DefaultNavbar'), { ssr: false });
 const ContentWrapper = dynamic(() => import ("@/app/components/DefaultContentWrapper"), { ssr: false });
-const HomePage = () => {
+const HomePage = async () => {
+    const getSession = await getServerSession(options);
+    console.log(getSession);
+
+    if (!getSession) {
+        return redirect('/sign-in');
+    }
+
     return (
         <>
             <Navbar />

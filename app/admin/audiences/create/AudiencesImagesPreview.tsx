@@ -1,7 +1,7 @@
 import { memo } from "react";
 import Image from "next/image";
 import { DualRingLoading } from "@/lib/StaticImagesLib";
-const ImagesPreview = ({ imagesPreview }: { imagesPreview: { count: number, data: string[], name: string[] }}) => {
+const AudiencesImagesPreview = ({ imagesPreview }: { imagesPreview: { count: number, data: string[], name: string[] }}) => {
     return (
         <>
             {
@@ -34,4 +34,4 @@ const ImagesPreview = ({ imagesPreview }: { imagesPreview: { count: number, data
     );
 };
 
-export default memo(ImagesPreview);
+export default memo(AudiencesImagesPreview);
