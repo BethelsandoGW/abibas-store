@@ -1,4 +1,5 @@
 import prisma from "../lib/prisma";
+import bcrypt from "bcrypt";
 async function main() {
     await prisma.roles.createMany({
         data: [
@@ -541,7 +542,26 @@ async function main() {
             },
         ],
     });
-
+    await prisma.user.createMany({
+        data: [
+            {
+                fullname: 'Kurodate Haruna',
+                email: 'kurodateHaruna@gehenna.sch.id',
+                username: 'kurodateHaruna',
+                password: await bcrypt.hash('buntut', 12),
+                role: 'ADMIN',
+                images: []
+            },
+            {
+                fullname: 'Ushio Noa',
+                email: 'ushionoa@millennium.sch.id',
+                username: 'ushionoa',
+                password: await bcrypt.hash('sayang', 12),
+                role: 'ADMIN',
+                images: []
+            }
+        ]
+    });
 
     // return await prisma.$queryRaw`SELECT name FROM "Audiences" WHERE name LIKE ${ 'w%'.toUpperCase() }`;
 }
