@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
@@ -15,11 +15,33 @@ export async function GET() {
 
         const newProducts =  await prisma.products.findMany({
             select: {
+                audiences: {
+                    select: {
+                        name: true
+                    }
+                },
+                categories: {
+                    select: {
+                        name: true
+                    }
+                },
+                genres: {
+                    select: {
+                        name: true
+                    }
+                },
+                series: {
+                    select: {
+                        name: true
+                    }
+                },
                 id: true,
                 name: true,
                 description: true,
+                specs: true,
                 price: true,
-                images: true
+                images: true,
+                stock: true
             },
             take: -10
         });
@@ -33,6 +55,23 @@ export async function GET() {
             },
             skip: 1,
             take: -6
+        });
+
+        const newEvents = await prisma.events.findMany({
+            select: {
+                id: true,
+                name: true,
+                slug: true,
+                description: true,
+                images: true,
+                status: true,
+                beginDate: true,
+                endDate: true
+            },
+            where: {
+                status: true
+            },
+            take: -4
         });
 
         const newGenres = await prisma.genres.findMany({
@@ -51,17 +90,18 @@ export async function GET() {
                 name: true,
                 images: true
             }
-        })
+        });
         return NextResponse.json({
             message: 'success',
             data: {
                 homeBanner: homeBanner,
                 newProducts: newProducts,
                 newSeries: newSeries,
+                newEvents: newEvents,
                 newGenres: newGenres,
                 audiences: audiences
             }
-        }, { status: 200 })
+        }, { status: 200 });
     } catch (error) {
         return NextResponse.json({
             message: 'An error to get data'

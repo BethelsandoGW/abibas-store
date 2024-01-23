@@ -1,10 +1,10 @@
 import prisma from "@/lib/prisma";
-import {NextRequest, NextResponse} from "next/server";
-import { z } from "zod";
+import { NextRequest, NextResponse } from "next/server";
+import { z, ZodObject } from "zod";
 
 export async function GET() {
     try {
-        const query = await prisma.events.findMany({
+        const query  = await prisma.events.findMany({
             select: {
                 id: true,
                 name: true,
@@ -28,24 +28,18 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const formDataSchema = z.object({
+    const dataSchema  = z.object({
         name: z.string().min(1, { message: "name must be fill" }),
         slug: z.string().min(1, { message: "Slug field is required" }),
         description: z.string().min(1,{ message: "Description field is required" }),
         images: z.array(z.string()).min(1, { message: "At least one image is required" }),
         status: z.boolean(),
-        beginDate: z.date(),
-        endDate: z.date()
+        beginDate: z.coerce.date(),
+        endDate: z.coerce.date()
     });
     try {
-        const formData = await req.json();
-        const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images || !validatedData.status
-            || !validatedData.beginDate || !validatedData.endDate) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
+        const form = await req.json();
+        const validatedData = dataSchema.parse(form);
         if (validatedData.name) {
             const checkName = await prisma.events.findFirst({
                 where: {
@@ -54,59 +48,44 @@ export async function POST(req: NextRequest) {
             });
             if (checkName) {
                 return NextResponse.json({
-                    message: 'Name already exist!'
-                }, {status: 400});
+                   message: "Name already exist!"
+                }, { status: 400 });
             }
         }
-        await prisma.categories.create({
+        await prisma.events.create({
             data: {
                 name: validatedData.name,
                 slug: validatedData.slug,
                 description: validatedData.description,
-                images: validatedData.images
+                images: validatedData.images,
+                status: validatedData.status,
+                beginDate: validatedData.beginDate,
+                endDate: validatedData.endDate
             }
         });
         return NextResponse.json({
             message: 'success'
         },{ status: 201 });
-    } catch (error) {
+    } catch (error: any) {
         return NextResponse.json({
-            message: 'An error to create data'
+            message: error.message
         },{ status: 500 });
     }
 }
 
 export async function PATCH(req: NextRequest) {
-    const formDataSchema = z.object({
+    const formDataSchema : ZodObject<any> = z.object({
         name: z.string().min(1, { message: "name must be fill" }),
         slug: z.string().min(1, { message: "Slug field is required" }),
         description: z.string().min(1,{ message: "Description field is required" }),
         images: z.array(z.string()).min(1, { message: "At least one image is required" }),
         status: z.boolean(),
-        beginDate: z.date(),
-        endDate: z.date()
+        beginDate: z.coerce.date(),
+        endDate: z.coerce.date()
     });
     try {
         const formData = await req.json();
-        const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images || !validatedData.status
-            || !validatedData.beginDate || !validatedData.endDate) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
-        if (validatedData.name) {
-            const checkName = await prisma.events.findFirst({
-               where: {
-                   name: validatedData.name
-               }
-            });
-            if (checkName) {
-                return NextResponse.json({
-                    message: 'Name already exist!'
-                }, {status: 400});
-            }
-        }
+        const validatedData: any | null = formDataSchema.parse(formData);
         const query: EventsModelType | null = await prisma.events.update({
             data: {
                 name: validatedData.name,
@@ -146,7 +125,7 @@ export async function DELETE(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({
             message: 'error'
-        }, { status: 500});
+        }, { status: 500 });
     }
 }
 

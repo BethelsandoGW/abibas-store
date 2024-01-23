@@ -1,10 +1,9 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import {z} from "zod";
 
 export async function GET() {
     try {
-            const getData = await prisma.genres.findMany({
+        const getData = await prisma.genres.findMany({
            select: {
                id: true,
                name: true,

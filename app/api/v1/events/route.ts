@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
         const query = await prisma.events.findMany({
             take: 5
-        })
+        });
         return NextResponse.json({
            message: 'Success',
            data: query

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { undefined, z, ZodError } from "zod";
+import { undefined, z } from "zod";
 
 export async function GET(req: NextRequest) {
     const count = req.nextUrl.searchParams.get('count')
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
         if (queryData.length===0) {
             return NextResponse.json({
                 message: 'ID not found!'
-            }, {status : 500});
+            }, { status : 500 });
         }
         return NextResponse.json({
             message: 'success',
@@ -45,11 +45,6 @@ export async function POST(req: NextRequest)  {
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
         await prisma.series.create({
             data: {
                 name: validatedData.name,
@@ -61,7 +56,7 @@ export async function POST(req: NextRequest)  {
         return NextResponse.json({
             message: "success"
         }, { status: 201 });
-    } catch (error: ZodError | any) {
+    } catch (error: any) {
         return NextResponse.json({
             message: `${ error ?? 'An error occurred while connecting to database' }`
         }, { status: 500 });
@@ -78,23 +73,6 @@ export async function PATCH(req: NextRequest) {
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
-        if (validatedData.name) {
-            const checkName = await prisma.series.findFirst({
-                where: {
-                    name: validatedData.name
-                }
-            });
-            if (checkName) {
-                return NextResponse.json({
-                    message: 'Name already exist!'
-                },{status: 400});
-            }
-        }
         const query = await prisma.series.update({
             data: {
                 name: validatedData.name,
@@ -118,7 +96,7 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-    try{
+    try {
         const formData = await req.json();
         await prisma.series.delete({
             where: {
@@ -131,7 +109,7 @@ export async function DELETE(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({
             message: 'error'
-        }, { status: 500});
+        }, { status: 500 });
     }
 }
 export const revalidate = 1;

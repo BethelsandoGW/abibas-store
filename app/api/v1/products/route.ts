@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
@@ -54,21 +54,11 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({
             message: 'success',
             data: query
-        }, { status: 200 })
+        }, { status: 200 });
     } catch (error) {
         return NextResponse.json({
            message: 'An error to get data'
-        }, {status: 500});
-    }
-}
-
-export async function POST() {
-    try {
-
-    } catch (error) {
-        return NextResponse.json({
-           message: 'An error to get data'
-        },{ status: 500 });
+        }, { status: 500 });
     }
 }
 

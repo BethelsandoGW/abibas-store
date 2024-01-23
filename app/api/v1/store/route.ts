@@ -1,13 +1,10 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
     try {
-        // const idParams = req.nextUrl.searchParams.get('idParams')
-        //     ? String(req.nextUrl.searchParams.get('idParams'))
-        //     : undefined;
-        const count = req.nextUrl.searchParams.get('count')
-            ? Number(req.nextUrl.searchParams.get('count'))
+        const take = req.nextUrl.searchParams.get('take')
+            ? Number(req.nextUrl.searchParams.get('take'))
             : 20;
         const name = req.nextUrl.searchParams.get('name')
             ? String(req.nextUrl.searchParams.get('name'))
@@ -80,23 +77,23 @@ export async function GET(req: NextRequest) {
                     }
                 }
             },
-            take: count
+            take: take
         });
 
         if (query.length===0){
             return NextResponse.json({
                 message: 'Data not found'
-            }, {status: 500})
+            }, { status: 500 });
         }
 
         return NextResponse.json({
             message: 'success',
             data: query
-        }, { status: 200 })
+        }, { status: 200 });
     } catch (error) {
         return NextResponse.json({
             message: 'An error to get data'
-        }, {status: 500});
+        }, { status: 500 });
     }
 }
 

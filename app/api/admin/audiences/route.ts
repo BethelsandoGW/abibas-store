@@ -1,8 +1,8 @@
 import prisma from "@/lib/prisma";
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const query = await prisma.audiences.findMany({
             select: {
@@ -30,13 +30,8 @@ export async function POST(req: NextRequest) {
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
         if (validatedData.name) {
-            const checkName = await prisma.audiences.findFirst({
+            const checkName: AudiencesModelType | null = await prisma.audiences.findFirst({
                where: {
                    name: validatedData.name
                }
@@ -71,23 +66,6 @@ export async function PATCH(req: NextRequest) {
     try {
         const formData = await req.json();
         const validatedData  = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
-        if (validatedData.name){
-            const checkName: AudiencesModelType | null  = await prisma.audiences.findFirst({
-                where: {
-                    name: validatedData.name
-                }
-            });
-            if (checkName){
-                return NextResponse.json({
-                    message: 'Name already exist!'
-                }, {status: 400});
-            }
-        }
         const query : AudiencesModelType | null = await prisma.audiences.update({
             where: {
                 id: formData.id
@@ -102,7 +80,7 @@ export async function PATCH(req: NextRequest) {
             data: query
         }, { status: 200 });
     } catch (error : string| any ) {
-        error.message
+        error.message;
         return NextResponse.json({
             message: 'An error to updating data',
         }, { status: 500 });
@@ -123,7 +101,7 @@ export async function DELETE(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({
             message: 'error'
-        }, { status: 500});
+        }, { status: 500 });
     }
 }
 

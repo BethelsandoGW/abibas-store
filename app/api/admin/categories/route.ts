@@ -1,6 +1,13 @@
 import prisma from "@/lib/prisma";
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+
+const formDataSchema = z.object({
+    name: z.string().min(1, { message: "name must be fill" }),
+    slug: z.string().min(1, { message: "Slug field is required" }),
+    description: z.string().min(1,{ message: "Description field is required" }),
+    images: z.array(z.string()).min(1, { message: "At least one image is required" })
+});
 
 export async function GET() {
     try {
@@ -25,20 +32,15 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const formDataSchema = z.object({
-        name: z.string().min(1, { message: "name must be fill" }),
-        slug: z.string().min(1, { message: "Slug field is required" }),
-        description: z.string().min(1,{ message: "Description field is required" }),
-        images: z.array(z.string()).min(1, { message: "At least one image is required" })
-    });
     try {
-        const formData = await req.json();
-        const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
+        const formData: FormData = await req.formData();
+        const arrImages = formData.get('images');
+        const validatedData = formDataSchema.parse({
+            name: formData.get('name'),
+            slug: formData.get('slug'),
+            description: formData.get('description'),
+            images: arrImages ? JSON.parse(arrImages as string) : []
+        });
         if (validatedData.name) {
             const checkName: CategoriesModelType | null = await prisma.categories.findFirst({
                 where: {
@@ -48,7 +50,7 @@ export async function POST(req: NextRequest) {
             if (checkName) {
                 return NextResponse.json({
                    message: 'Name already exist!'
-                }, {status: 400});
+                }, { status: 400 });
             }
         }
         await prisma.categories.create({
@@ -59,44 +61,22 @@ export async function POST(req: NextRequest) {
                 images: validatedData.images
             }
         });
+
         return NextResponse.json({
             message: 'success'
-        },{ status: 201 });
-    } catch (error) {
+        },{ status: 200 });
+    } catch (error: any) {
         return NextResponse.json({
-            message: 'An error to create data'
+            message: error.message
         },{ status: 500 });
     }
 }
 
 export async function PATCH(req: NextRequest) {
-    const formDataSchema = z.object({
-        name: z.string().min(1, { message: "name must be fill" }),
-        slug: z.string().min(1, { message: "Slug field is required" }),
-        description: z.string().min(1,{ message: "Description field is required" }),
-        images: z.string().array().min(1, { message: "At least one image is required" })
-    });
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!formData.name || !formData.slug || !formData.description || !formData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
-        if (validatedData.name) {
-            const checkName: CategoriesModelType | null = await prisma.categories.findFirst({
-                where: {
-                    name: validatedData.name
-                }
-            });
-            if (checkName) {
-                return NextResponse.json({
-                    message: 'Name already exist!'
-                }, {status: 400});
-            }
-        }
-        const query = await prisma.categories.update({
+        const query: CategoriesModelType | null = await prisma.categories.update({
             data: {
                 name: validatedData.name,
                 slug: validatedData.slug,
@@ -132,7 +112,7 @@ export async function DELETE(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({
             message: 'error'
-        }, { status: 500});
+        }, { status: 500 });
     }
 }
 

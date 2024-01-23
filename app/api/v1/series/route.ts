@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         if (queryData.length===0) {
             return NextResponse.json({
                 message: 'ID not found!'
-            }, {status : 500});
+            }, { status : 500 });
         }
         return NextResponse.json({
             message: 'success',

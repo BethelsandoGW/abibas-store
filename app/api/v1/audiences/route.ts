@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
-import { NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const query = await prisma.audiences.findMany()
+        const query = await prisma.audiences.findMany();
         return NextResponse.json({
             message: 'Success',
             data: query

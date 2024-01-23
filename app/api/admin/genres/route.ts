@@ -1,6 +1,6 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import {z} from "zod";
+import { z } from "zod";
 
 export async function GET() {
     try {
@@ -34,11 +34,6 @@ export async function POST(req: NextRequest) {
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
         if (validatedData.name) {
             const checkName = await prisma.genres.findFirst({
                where: {
@@ -48,7 +43,7 @@ export async function POST(req: NextRequest) {
             if (checkName) {
                 return NextResponse.json({
                    message: 'Name already exist!'
-                }, {status: 400});
+                }, { status: 400 });
             }
         }
         await prisma.genres.create({
@@ -79,23 +74,6 @@ export async function PATCH(req: NextRequest) {
     try {
         const formData = await req.json();
         const validatedData = formDataSchema.parse(formData);
-        if (!validatedData.name || !validatedData.slug || !validatedData.description || !validatedData.images) {
-            return NextResponse.json({
-                message: 'Invalid Required field'
-            }, { status: 400 });
-        }
-        if (validatedData.name) {
-            const checkName = await prisma.genres.findFirst({
-               where: {
-                   name: validatedData.name
-               }
-            });
-            if (checkName) {
-                return NextResponse.json({
-                    message: 'Name already exist!'
-                }, {status: 400})
-            }
-        }
         const query = await prisma.genres.update({
             data: {
                 name: validatedData.name,
@@ -108,7 +86,7 @@ export async function PATCH(req: NextRequest) {
             }
         });
         return NextResponse.json({
-            message: 'succes updating data',
+            message: 'success updating data',
             data: query
         }, { status: 200 });
     } catch (error) {
@@ -132,7 +110,7 @@ export async function DELETE(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({
             message: 'error'
-        }, {status: 500});
+        }, { status: 500 });
     }
 }
 
