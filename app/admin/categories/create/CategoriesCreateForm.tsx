@@ -23,7 +23,7 @@ type formStateType = {
         isFilled: boolean | null
     },
     onSubmit: boolean
-    status: boolean
+    status: boolean | null
     message: string
 }
 const CategoriesCreateForm = () => {
@@ -146,6 +146,12 @@ const CategoriesCreateForm = () => {
                     slug: 'Image upload error',
                     message: uploadImagesResponse.statusText,
                     play: true
+                }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    message: 'Images upload to server error',
+                    onSubmit: false,
+                    status: false
                 }));
                 return;
             }

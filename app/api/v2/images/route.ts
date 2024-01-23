@@ -34,9 +34,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<{ message: st
             data: imageUrls
         }, { status: 200 });
     } catch (error: any) {
-        console.log(error.message);
         return NextResponse.json({
-            message: 'Operation Failed, an error occurred',
+            message: error.message,
         }, { status: 500, statusText: 'Operation Failed, an error occurred' });
     }
 }

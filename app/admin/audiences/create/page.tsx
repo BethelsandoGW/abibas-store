@@ -1,7 +1,7 @@
 'use client';
 import { useSearchParams } from "next/navigation";
 import { checkWebKey } from "@/lib/CryptoLib";
-import CreateAudiencesForm from "@/app/admin/audiences/create/CreateAudiencesForm";
+import AudiencesCreateForm from "@/app/admin/audiences/create/AudiencesCreateForm";
 const CreateAudiencesPage = () => {
     const searchParams = useSearchParams();
     const keyParams: string = searchParams.get('key') ?? '';
@@ -14,10 +14,10 @@ const CreateAudiencesPage = () => {
             <section className="w-full min-h-96 bg-white rounded-md space-y-3">
                 <div className="flex items-center justify-center lg:justify-start w-full h-14 px-7">
                     <h1 className="font-semibold">
-                        Create New Category
+                        Create New Audiences
                     </h1>
                 </div>
-                <CreateAudiencesForm />
+                <AudiencesCreateForm />
             </section>
         </>
     );
