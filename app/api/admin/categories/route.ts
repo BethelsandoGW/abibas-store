@@ -34,12 +34,11 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         const formData: FormData = await req.formData();
-        const arrImages = formData.get('images');
         const validatedData = formDataSchema.parse({
             name: formData.get('name'),
             slug: formData.get('slug'),
             description: formData.get('description'),
-            images: arrImages ? JSON.parse(arrImages as string) : []
+            images: formData.get('images')
         });
         if (validatedData.name) {
             const checkName: CategoriesModelType | null = await prisma.categories.findFirst({

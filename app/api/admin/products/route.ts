@@ -34,14 +34,15 @@ export async function GET(req: NextRequest) {
         }, { status: 500 });
     }
 }
-export async function POST(req: NextRequest)  {
 
+export async function POST(req: NextRequest)  {
     const formDataSchema = z.object({
         audienceId: z.string().min(1, { message: "audiences must be fill" }),
         categoryId: z.string().min(1, { message: "categories must be fill" }),
         genresId: z.string().min(1, { message: "genres must be fill" }),
         seriesId: z.string().min(1, { message: "series must be fill" }),
         name: z.string().min(1, { message: "name must be fill" }),
+        gender: z.enum([ 'MALE', 'FEMALE', 'UNISEX' ]),
         slug: z.string().min(1, { message: "Slug field is required" }),
         description: z.string().min(1,{ message: "Description field is required" }),
         specs: z.object({
@@ -71,6 +72,7 @@ export async function POST(req: NextRequest)  {
         await prisma.products.create({
             data: {
                 name: validatedData.name,
+                gender: validatedData.gender,
                 slug: validatedData.slug,
                 description: validatedData.description,
                 specs: JSON.stringify(validatedData.specs),
@@ -119,6 +121,7 @@ export async function PATCH(req: NextRequest) {
         genresId: z.string().min(1),
         seriesId: z.string().min(1),
         name: z.string().min(1, { message: "name must be fill" }),
+        gender: z.enum([ 'MALE', 'FEMALE', 'UNISEX' ]),
         slug: z.string().min(1, { message: "Slug field is required" }),
         description: z.string().min(1,{ message: "Description field is required" }),
         specs: z.string().min(1, { message: "At least one description must be fill" }),
@@ -132,6 +135,7 @@ export async function PATCH(req: NextRequest) {
         const query = await prisma.products.update({
             data: {
                 name: validatedData.name,
+                gender: validatedData.gender,
                 slug: validatedData.slug,
                 description: validatedData.description,
                 specs: validatedData.specs,
