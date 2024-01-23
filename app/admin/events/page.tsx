@@ -55,7 +55,7 @@ const EventsPage = async () => {
 
     return (
         <>
-            <AdminEventsContent eventsData={eventsData} webKey={webKey} />
+            <AdminEventsContent eventsDataProps={eventsData} webKey={webKey} />
         </>
     );
 };
