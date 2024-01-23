@@ -4,20 +4,22 @@ import { getApiKey } from "@/lib/CryptoLib";
 import { z } from "zod";
 import path from "node:path";
 import prisma from "@/lib/prisma";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { Prisma } from "@prisma/client";
-import PrismaClientUnknownRequestError = Prisma.PrismaClientUnknownRequestError;
+import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError } from "@prisma/client/runtime/library";
 
-const formSchema = z.object({
+const categoryFormSchema = z.object({
     name: z.string()
         .min(1, { message: `Name can't be empty` })
         .regex(/^[a-zA-Z0-9\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/, { message: 'Unique symbol is not allowed in Name input' }),
+    slug: z.string().min(1, { message: `Category Slug can't be empty` }),
+    description: z.string().min(1, { message: `'Category Description can't be empty` }),
     images: z.string().array().nonempty({ message: `Images must be provided` })
 });
 
-export const formServerAction = async (formData: FormData): Promise<{ success: boolean, message: string }> => {
-    const validatedForm = formSchema.safeParse({
+export const categoryCreateData = async (formData: FormData): Promise<{ success: boolean, message: string }> => {
+    const validatedForm = categoryFormSchema.safeParse({
         name: formData.get('name'),
+        slug: formData.get('slug'),
+        description: formData.get('description'),
         images: formData.get('images')
             ? JSON.parse(formData.get('images') as string)
             : []
@@ -29,9 +31,11 @@ export const formServerAction = async (formData: FormData): Promise<{ success: b
         };
     }
     try {
-        await prisma.audiences.create({
+        await prisma.categories.create({
             data: {
                 name: validatedForm.data.name,
+                slug: validatedForm.data.slug,
+                description: validatedForm.data.description,
                 images: validatedForm.data.images
             }
         });
@@ -52,7 +56,7 @@ export const formServerAction = async (formData: FormData): Promise<{ success: b
     }
 };
 
-export async function checkUniqueName(name: string): Promise<boolean | null> {
+export async function categoryNameCheck(name: string): Promise<boolean | null> {
     const { key, iv }: { key: string | null, iv: string | null } = getApiKey();
     if (!key || !iv) {
         return null;
